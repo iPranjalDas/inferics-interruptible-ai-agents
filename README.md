@@ -289,7 +289,7 @@ $$L_{\text{perceptual}} = t_{\text{halt}} - t_{\text{phonation}} = \mathbf{-148.
 
 As mandated by the official Samsung PRISM GenAI Hackathon (3rd Edition 2026–27) Participant Guidelines and Submission FAQ, a comprehensive 5-minute video demonstration highlighting the full-duplex conversational flow, sub-15ms fast-path interruption, and Living Samsung Fabric web interface is provided below:
 
-- **Primary Demo Video Link (YouTube):** [https://youtu.be/placeholder-inferics-pulse-demo](https://youtu.be/placeholder-inferics-pulse-demo) *(Update with finalized upload)*
+- **Primary Demo Video Link (YouTube):** [https://youtu.be/LERGdrp1xLY](https://youtu.be/LERGdrp1xLY)
 - **Alternative Mirror (Google Drive):** [https://drive.google.com/file/d/placeholder-inferics-pulse-demo/view](https://drive.google.com/file/d/placeholder-inferics-pulse-demo/view)
 - **Demo Length:** Exactly 4 minutes 48 seconds (Strictly within the 5-minute hackathon ceiling)
 
