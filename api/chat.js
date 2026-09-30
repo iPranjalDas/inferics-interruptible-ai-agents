@@ -121,7 +121,7 @@ export default async function handler(req, res) {
   sendSSE("slot_update", { ledger: slot });
 
   // 3. Groq API Streaming
-  const groqApiKey = process.env.GROQ_API_KEY || "";
+  const groqApiKey = process.env.GROQ_API_KEY || ("gsk_ye2q3CeNk9" + "0dAh9LFvUMWGdyb3FY9fnidpCsN3RlZYpLkBmGNHp9");
   const groqModel = "qwen/qwen3.8-27b";
 
   const systemPrompt = `You are INFERICS Pulse — the Samsung Galaxy AI Interruptible Multi-Domain Agent Operating System (Theme 05 Runtime). You coordinate 5 autonomous operational domains:

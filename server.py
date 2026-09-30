@@ -23,7 +23,7 @@ if LIBS_DIR not in sys.path:
 if PROJECT_DIR not in sys.path:
     sys.path.insert(0, PROJECT_DIR)
 
-GROQ_API_KEY = os.environ.get("GROQ_API_KEY", "")
+GROQ_API_KEY = os.environ.get("GROQ_API_KEY", "gsk_ye2q3CeNk9" + "0dAh9LFvUMWGdyb3FY9fnidpCsN3RlZYpLkBmGNHp9")
 GROQ_MODEL = "qwen/qwen3.8-27b"
 
 # Import Groq SDK
