@@ -414,7 +414,10 @@ function App() {
     }
     if (chatBottomRef.current) {
       const parent = chatBottomRef.current.parentNode;
-      parent.scrollTop = parent.scrollHeight;
+      const isNearBottom = parent.scrollHeight - parent.scrollTop - parent.clientHeight < 100;
+      if (isNearBottom || !currentStream) {
+        parent.scrollTop = parent.scrollHeight;
+      }
     }
   }, [transcript, currentStream]);
   useEffect(() => {
@@ -1071,14 +1074,24 @@ function App() {
     },
     "Stop"
   )), /* @__PURE__ */ React.createElement("div", { className: `mt-3 sm:mt-4 pt-3 sm:pt-4 border-t flex items-center gap-2 sm:gap-3 w-full min-w-0 ${isLight ? "border-zinc-200" : "border-zinc-800"}` }, /* @__PURE__ */ React.createElement("div", { className: "relative flex-1 min-w-0 flex items-center" }, /* @__PURE__ */ React.createElement(
-    "input",
+    "textarea",
     {
-      type: "text",
+      rows: 1,
       value: message,
-      onChange: (e) => setMessage(e.target.value),
-      onKeyDown: (e) => e.key === "Enter" && handleSendMessage(),
+      onChange: (e) => {
+        setMessage(e.target.value);
+        e.target.style.height = "auto";
+        e.target.style.height = Math.min(e.target.scrollHeight, 120) + "px";
+      },
+      onKeyDown: (e) => {
+        if (e.key === "Enter" && !e.shiftKey) {
+          e.preventDefault();
+          handleSendMessage();
+          e.target.style.height = "auto";
+        }
+      },
       placeholder: isListening ? "\u{1F399}\uFE0F Listening... Speak naturally now..." : `Ask ${activeDomainObj.name}...`,
-      className: `w-full min-w-0 border rounded-xl sm:rounded-2xl pl-3 sm:pl-4 pr-11 sm:pr-12 py-3 sm:py-3.5 text-xs sm:text-sm transition shadow-inner ${isLight ? "bg-white border-zinc-300 text-zinc-900 placeholder:text-zinc-400 focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600" : "bg-black border-zinc-800 text-white placeholder:text-zinc-500 focus:outline-none focus:border-zinc-500 focus:ring-1 focus:ring-zinc-500"}`
+      className: `w-full min-w-0 border rounded-xl sm:rounded-2xl pl-3 sm:pl-4 pr-11 sm:pr-12 py-3 sm:py-3.5 text-xs sm:text-sm transition shadow-inner resize-none overflow-y-auto ${isLight ? "bg-white border-zinc-300 text-zinc-900 placeholder:text-zinc-400 focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600" : "bg-black border-zinc-800 text-white placeholder:text-zinc-500 focus:outline-none focus:border-zinc-500 focus:ring-1 focus:ring-zinc-500"}`
     }
   ), /* @__PURE__ */ React.createElement(
     "button",
