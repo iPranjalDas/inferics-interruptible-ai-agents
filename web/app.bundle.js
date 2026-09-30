@@ -316,6 +316,15 @@ const cleanMobileSpeechDeduplication = (text) => {
 };
 function App() {
   const theme = "light";
+  const [bootStage, setBootStage] = useState("visible");
+  useEffect(() => {
+    const fadeTimer = setTimeout(() => setBootStage("fading"), 1500);
+    const hideTimer = setTimeout(() => setBootStage("hidden"), 2500);
+    return () => {
+      clearTimeout(fadeTimer);
+      clearTimeout(hideTimer);
+    };
+  }, []);
   const [activeDisfluency, setActiveDisfluency] = useState(null);
   const [activeDomain, setActiveDomain] = useState("travel");
   const [selectedDevice, setSelectedDevice] = useState("s25_ultra");
@@ -892,7 +901,7 @@ function App() {
   const activeDomainObj = AGENT_DOMAINS[activeDomain] || AGENT_DOMAINS.travel;
   const activeDev = devices[selectedDevice] || defaultSamsungDevices[selectedDevice] || defaultSamsungDevices.s25_ultra;
   const isLight = true;
-  return /* @__PURE__ */ React.createElement("div", { className: "h-[100dvh] overflow-hidden flex flex-col font-sans bg-white text-zinc-900 selection:bg-blue-600/30 selection:text-white" }, /* @__PURE__ */ React.createElement("nav", { className: "shrink-0 sticky top-0 z-40 backdrop-blur-md px-3 sm:px-6 py-2.5 sm:py-3 border-b bg-white/95 border-zinc-200 text-zinc-900 shadow-sm" }, /* @__PURE__ */ React.createElement("div", { className: "max-w-7xl mx-auto flex flex-col lg:flex-row lg:items-center justify-between gap-2.5 lg:gap-4" }, /* @__PURE__ */ React.createElement("div", { className: "flex items-center justify-between w-full lg:w-auto gap-3" }, /* @__PURE__ */ React.createElement("div", { className: "flex items-center gap-2 cursor-pointer shrink-0", onClick: () => setActiveTab("runtime") }, /* @__PURE__ */ React.createElement("span", { className: "font-black text-lg sm:text-xl tracking-[0.2em] sm:tracking-[0.24em] uppercase select-none text-zinc-900" }, "SAMSUNG"), /* @__PURE__ */ React.createElement(
+  return /* @__PURE__ */ React.createElement("div", { className: "h-[100dvh] overflow-hidden flex flex-col font-sans bg-white text-zinc-900 selection:bg-blue-600/30 selection:text-white" }, bootStage !== "hidden" && /* @__PURE__ */ React.createElement("div", { className: `fixed inset-0 z-[9999] flex items-center justify-center bg-black transition-opacity duration-1000 ease-in-out ${bootStage === "fading" ? "opacity-0" : "opacity-100"}` }, /* @__PURE__ */ React.createElement("h1", { className: "text-white text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-[0.25em] md:tracking-[0.4em] uppercase", style: { fontFamily: "Arial, sans-serif" } }, "SAMSUNG")), /* @__PURE__ */ React.createElement("nav", { className: "shrink-0 sticky top-0 z-40 backdrop-blur-md px-3 sm:px-6 py-2.5 sm:py-3 border-b bg-white/95 border-zinc-200 text-zinc-900 shadow-sm" }, /* @__PURE__ */ React.createElement("div", { className: "max-w-7xl mx-auto flex flex-col lg:flex-row lg:items-center justify-between gap-2.5 lg:gap-4" }, /* @__PURE__ */ React.createElement("div", { className: "flex items-center justify-between w-full lg:w-auto gap-3" }, /* @__PURE__ */ React.createElement("div", { className: "flex items-center gap-2 cursor-pointer shrink-0", onClick: () => setActiveTab("runtime") }, /* @__PURE__ */ React.createElement("span", { className: "font-black text-lg sm:text-xl tracking-[0.2em] sm:tracking-[0.24em] uppercase select-none text-zinc-900" }, "SAMSUNG"), /* @__PURE__ */ React.createElement(
     "button",
     {
       onClick: (e) => {

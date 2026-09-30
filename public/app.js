@@ -355,6 +355,14 @@ const cleanMobileSpeechDeduplication = (text) => {
 
 function App() {
   const theme = "light";
+  const [bootStage, setBootStage] = useState('visible'); // visible -> fading -> hidden
+  
+  useEffect(() => {
+    const fadeTimer = setTimeout(() => setBootStage('fading'), 1500);
+    const hideTimer = setTimeout(() => setBootStage('hidden'), 2500);
+    return () => { clearTimeout(fadeTimer); clearTimeout(hideTimer); };
+  }, []);
+
   const [activeDisfluency, setActiveDisfluency] = useState(null);
   const [activeDomain, setActiveDomain] = useState("travel");
   const [selectedDevice, setSelectedDevice] = useState("s25_ultra");
@@ -1021,6 +1029,15 @@ function App() {
   return (
     <div className="h-[100dvh] overflow-hidden flex flex-col font-sans bg-white text-zinc-900 selection:bg-blue-600/30 selection:text-white">
       
+      {/* 0. SAMSUNG Absolute Black Boot Screen */}
+      {bootStage !== 'hidden' && (
+        <div className={`fixed inset-0 z-[9999] flex items-center justify-center bg-black transition-opacity duration-1000 ease-in-out ${bootStage === 'fading' ? 'opacity-0' : 'opacity-100'}`}>
+          <h1 className="text-white text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-[0.25em] md:tracking-[0.4em] uppercase" style={{ fontFamily: 'Arial, sans-serif' }}>
+            SAMSUNG
+          </h1>
+        </div>
+      )}
+
       {/* 1. Official Samsung Top Navigation Bar */}
       <nav className="shrink-0 sticky top-0 z-40 backdrop-blur-md px-3 sm:px-6 py-2.5 sm:py-3 border-b bg-white/95 border-zinc-200 text-zinc-900 shadow-sm">
         <div className="max-w-7xl mx-auto flex flex-col lg:flex-row lg:items-center justify-between gap-2.5 lg:gap-4">
