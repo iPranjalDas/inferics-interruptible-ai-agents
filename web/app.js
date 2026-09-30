@@ -1014,10 +1014,10 @@ function App() {
   const isLight = true;
 
   return (
-    <div className="min-h-screen font-sans bg-white text-zinc-900 selection:bg-blue-600/30 selection:text-white pb-16">
+    <div className="h-[100dvh] overflow-hidden flex flex-col font-sans bg-white text-zinc-900 selection:bg-blue-600/30 selection:text-white">
       
       {/* 1. Official Samsung Top Navigation Bar */}
-      <nav className="sticky top-0 z-40 backdrop-blur-md px-3 sm:px-6 py-2.5 sm:py-3 border-b bg-white/95 border-zinc-200 text-zinc-900 shadow-sm">
+      <nav className="shrink-0 sticky top-0 z-40 backdrop-blur-md px-3 sm:px-6 py-2.5 sm:py-3 border-b bg-white/95 border-zinc-200 text-zinc-900 shadow-sm">
         <div className="max-w-7xl mx-auto flex flex-col lg:flex-row lg:items-center justify-between gap-2.5 lg:gap-4">
           
           <div className="flex items-center justify-between w-full lg:w-auto gap-3">
@@ -1113,6 +1113,7 @@ function App() {
         </div>
       </nav>
 
+      <main className="flex-1 overflow-y-auto pb-16">
       {/* 2. Hero Billboard: Multi-Purpose Interruptible Agent Runtime */}
       <header className={`border-b py-3.5 sm:py-5 px-3 sm:px-6 ${
         isLight ? "bg-white border-zinc-200 text-zinc-900" : "bg-black border-zinc-800/80 text-white"
@@ -2194,7 +2195,7 @@ function App() {
           <span>Sub-15ms Interruption Reactor</span>
         </div>
       </footer>
-
+      </main>
     </div>
   );
 }
