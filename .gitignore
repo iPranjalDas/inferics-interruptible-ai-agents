@@ -1,0 +1,9 @@
+.vercel
+
+packages/
+.venv/
+libs/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+*.log
