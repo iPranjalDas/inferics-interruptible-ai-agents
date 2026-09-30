@@ -1584,7 +1584,7 @@ function App() {
             </div>
 
             {/* Chat Transcript Card */}
-            <div className={`w-full min-w-0 p-3.5 sm:p-6 rounded-2xl sm:rounded-3xl border shadow-2xl flex flex-col flex-1 min-h-[460px] sm:min-h-[500px] max-h-[640px] justify-between ${
+            <div className={`w-full min-w-0 p-3.5 sm:p-6 rounded-2xl sm:rounded-3xl border shadow-2xl flex flex-col h-[500px] lg:h-[640px] justify-between ${
               isLight ? "bg-white border-zinc-200 text-zinc-900 shadow-zinc-200/50" : "bg-zinc-950 border-zinc-800 text-white"
             }`}>
               
