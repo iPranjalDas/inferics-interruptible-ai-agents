@@ -1118,7 +1118,9 @@ function App() {
         </div>
       </nav>
 
-      <main className="flex-1 overflow-y-auto pb-16">
+            <div className="flex-1 flex overflow-hidden w-full">
+        <main className="flex-1 overflow-y-auto pb-16">
+
       {/* 2. Hero Billboard: Multi-Purpose Interruptible Agent Runtime */}
       <header className={`border-b py-3.5 sm:py-5 px-3 sm:px-6 ${
         isLight ? "bg-white border-zinc-200 text-zinc-900" : "bg-black border-zinc-800/80 text-white"
@@ -1344,10 +1346,10 @@ function App() {
 
       {/* 5. TAB 1: RUNTIME CORE & MULTI-DOMAIN AGENTS */}
       {activeTab === "runtime" && (
-        <main className="w-full max-w-7xl mx-auto px-3 sm:px-6 mt-4 sm:mt-6 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 min-w-0">
+        <main className="w-full max-w-7xl mx-auto px-3 sm:px-6 mt-4 sm:mt-6 flex flex-col gap-6 lg:gap-8 w-full max-w-4xl mx-auto min-w-0">
           
           {/* Left Column: Voice Core, Race-Condition Visualizer & Hardware Telemetry (5 Cols) */}
-          <div className="w-full min-w-0 max-w-full lg:col-span-5 flex flex-col gap-6">
+          <div className="w-full min-w-0 max-w-full w-full flex flex-col gap-6">
             
             {/* The Titanium Obsidian Voice Orb Card */}
             <div className={`p-4 sm:p-6 rounded-2xl sm:rounded-3xl border shadow-2xl flex flex-col items-center justify-center text-center relative overflow-hidden ${
@@ -1565,191 +1567,6 @@ function App() {
           </div>
 
           {/* Right Column: Chat Arena & Multi-Domain Advisor (7 Cols) */}
-          <div className="w-full min-w-0 max-w-full lg:col-span-7 flex flex-col gap-3 sm:gap-4">
-            
-            {/* Quick Suggestion Prompts for Active Domain */}
-            <div className="w-full max-w-full min-w-0 overflow-hidden">
-              <div className="w-full max-w-full min-w-0 flex items-center gap-2 overflow-x-auto pb-1.5 no-scrollbar text-xs">
-                {activeDomainObj.samplePrompts.map((q, idx) => (
-                  <button
-                    key={idx}
-                    onClick={() => {
-                      if (q.dev) setSelectedDevice(q.dev);
-                      handleSendMessage(q.text);
-                    }}
-                    className={`px-3 py-1.5 rounded-full shadow-sm transition text-left text-xs font-medium flex items-center gap-1.5 cursor-pointer whitespace-nowrap shrink-0 border ${
-                      isLight
-                        ? "bg-white hover:bg-blue-50 text-zinc-800 hover:text-blue-700 border-zinc-200 hover:border-blue-400"
-                        : "bg-zinc-900 hover:bg-blue-600 text-zinc-300 hover:text-white border-zinc-800 hover:border-blue-600"
-                    }`}>
-                    <span>✦</span>
-                    <span className="truncate max-w-[280px] sm:max-w-none">{q.text}</span>
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Chat Transcript Card */}
-            <div className={`w-full min-w-0 p-3.5 sm:p-6 rounded-2xl sm:rounded-3xl border shadow-2xl flex flex-col h-[500px] lg:h-[640px] justify-between ${
-              isLight ? "bg-white border-zinc-200 text-zinc-900 shadow-zinc-200/50" : "bg-zinc-950 border-zinc-800 text-white"
-            }`}>
-              
-              {/* Messages Scroll View */}
-              <div className="overflow-y-auto pr-1 sm:pr-2 flex flex-col gap-3 sm:gap-4 flex-1 min-h-0">
-                {transcript.map((msg, idx) => (
-                  <div 
-                    key={idx} 
-                    className={`flex flex-col gap-1.5 ${msg.role === 'user' ? 'items-end' : 'items-start'}`}>
-                    
-                    <div className="flex items-center gap-2 text-[11px] text-zinc-500 px-1">
-                      <span>{msg.role === 'user' ? '👤 Operator' : `✦ INFERICS Pulse (${activeDomainObj.shortName})`}</span>
-                      <span>·</span>
-                      <span>{msg.timestamp}</span>
-                    </div>
-
-                    {/* Fast-Path Filler Bubble */}
-                    {msg.filler && (
-                      <div className={`px-3 py-1.5 rounded-xl border text-xs font-mono ${
-                        isLight ? "bg-white border-zinc-200 text-zinc-800" : "bg-zinc-900 border-zinc-800 text-zinc-300"
-                      }`}>
-                        <span className={`text-[10px] uppercase font-bold mr-2 ${isLight ? "text-zinc-500" : "text-zinc-400"}`}>[Fast-Path ~28ms]:</span>
-                        {msg.filler}
-                      </div>
-                    )}
-
-                    {/* Speech Text Bubble */}
-                    <div className={`p-3 sm:p-4 rounded-xl sm:rounded-2xl text-xs sm:text-sm leading-relaxed max-w-[92%] sm:max-w-[90%] shadow-md ${
-                      msg.role === 'user'
-                        ? 'bg-blue-600 text-white rounded-tr-none shadow-blue-600/30 font-medium'
-                        : msg.interrupted
-                        ? (isLight ? 'bg-rose-50 border border-rose-200 text-rose-900 rounded-tl-none' : 'bg-rose-950/70 border border-rose-800 text-rose-200 rounded-tl-none')
-                        : (isLight ? 'bg-white border border-zinc-200 text-zinc-900 rounded-tl-none' : 'bg-zinc-900 border border-zinc-800 text-white rounded-tl-none')
-                    }`}>
-                      <div 
-                        className="chat-markdown"
-                        dangerouslySetInnerHTML={renderFormattedMarkdown(msg.text, msg.role === 'user')}
-                      />
-                    </div>
-                  </div>
-                ))}
-
-                {/* Live In-Flight Stream */}
-                {(currentStream || currentFiller) && (
-                  <div className="flex flex-col gap-1.5 items-start animate-fadeIn">
-                    <div className="flex items-center gap-2 text-[11px] text-emerald-600 dark:text-emerald-400 px-1 font-mono font-medium">
-                      <span>✦ Streaming from Groq LPU (qwen/qwen3.8-27b)</span>
-                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping"></span>
-                    </div>
-
-                    {currentFiller && (
-                      <div className={`px-3 py-1.5 rounded-xl border text-xs font-mono ${
-                        isLight ? "bg-white border-zinc-200 text-zinc-800" : "bg-zinc-900 border-zinc-800 text-zinc-300"
-                      }`}>
-                        <span className={`text-[10px] uppercase font-bold mr-2 ${isLight ? "text-zinc-500" : "text-zinc-400"}`}>[Fast-Path &lt;50ms]:</span>
-                        {currentFiller}
-                      </div>
-                    )}
-
-                    {currentStream && (
-                      <div className={`p-3 sm:p-4 rounded-xl sm:rounded-2xl text-xs sm:text-sm leading-relaxed max-w-[92%] sm:max-w-[90%] rounded-tl-none shadow-xl flex items-start gap-1 ${
-                        isLight ? "bg-white border border-zinc-200 text-zinc-900" : "bg-zinc-900 border border-zinc-700 text-white"
-                      }`}>
-                        <div 
-                          className="chat-markdown flex-1"
-                          dangerouslySetInnerHTML={renderFormattedMarkdown(currentStream, false)}
-                        />
-                        <span className="inline-block w-2 h-4 bg-emerald-500 mt-1 animate-pulse flex-shrink-0"></span>
-                      </div>
-                    )}
-                  </div>
-                )}
-                <div ref={chatBottomRef} />
-              </div>
-
-              {/* Voice Typing Active Indicator Banner */}
-              {isListening && (
-                <div className={`mt-2.5 px-3 py-1.5 sm:py-2 rounded-xl border text-xs font-mono flex items-center justify-between animate-pulse ${
-                  isLight ? "bg-emerald-50 border-emerald-200 text-emerald-800" : "bg-zinc-900 border-zinc-800 text-zinc-300"
-                }`}>
-                  <div className="flex items-center gap-1.5 sm:gap-2 text-[11px] sm:text-xs">
-                    <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
-                    <span>🎙️ Voice Typing Active... Speak naturally</span>
-                  </div>
-                  <button 
-                    onClick={toggleVoiceTyping}
-                    className="px-2 py-0.5 sm:py-1 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-[10px] sm:text-[11px] font-bold cursor-pointer transition">
-                    Stop
-                  </button>
-                </div>
-              )}
-
-              {/* Chat Input Bar */}
-              <div className={`mt-3 sm:mt-4 pt-3 sm:pt-4 border-t flex items-center gap-2 sm:gap-3 w-full min-w-0 ${
-                isLight ? "border-zinc-200" : "border-zinc-800"
-              }`}>
-                <div className="relative flex-1 min-w-0 flex items-center">
-                  <textarea
-                    rows={1}
-                    value={message}
-                    onChange={(e) => {
-                      setMessage(e.target.value);
-                      e.target.style.height = 'auto';
-                      e.target.style.height = Math.min(e.target.scrollHeight, 120) + 'px';
-                    }}
-                    onKeyDown={(e) => {
-                      if (e.key === 'Enter' && !e.shiftKey) {
-                        e.preventDefault();
-                        handleSendMessage();
-                        e.target.style.height = 'auto';
-                      }
-                    }}
-                    placeholder={isListening ? "🎙️ Listening... Speak naturally now..." : `Ask ${activeDomainObj.name}...`}
-                    className={`w-full min-w-0 border rounded-xl sm:rounded-2xl pl-3 sm:pl-4 pr-11 sm:pr-12 py-3 sm:py-3.5 text-xs sm:text-sm transition shadow-inner resize-none overflow-y-auto ${
-                      isLight
-                        ? "bg-white border-zinc-300 text-zinc-900 placeholder:text-zinc-400 focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600"
-                        : "bg-black border-zinc-800 text-white placeholder:text-zinc-500 focus:outline-none focus:border-zinc-500 focus:ring-1 focus:ring-zinc-500"
-                    }`}
-                  />
-                  
-                  {/* Voice Typing Microphone Button */}
-                  <button
-                    type="button"
-                    onClick={toggleVoiceTyping}
-                    title={isListening ? "Stop Voice Typing" : "Start Voice Typing (Microphone)"}
-                    className={`absolute right-1.5 sm:right-2.5 p-1.5 sm:p-2 rounded-lg sm:rounded-xl transition-all flex items-center justify-center cursor-pointer shrink-0 ${
-                      isListening
-                        ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/40 animate-pulse'
-                        : isLight
-                        ? 'bg-white hover:bg-blue-600 text-zinc-700 hover:text-white border border-zinc-200 hover:border-blue-600'
-                        : 'bg-zinc-900 hover:bg-blue-600 text-zinc-300 hover:text-white border border-zinc-800 hover:border-blue-600'
-                    }`}>
-                    <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z" />
-                      <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
-                      <line x1="12" x2="12" y1="19" y2="22" />
-                    </svg>
-                  </button>
-                </div>
-                
-                {/* Send Button */}
-                <button
-                  onClick={() => handleSendMessage()}
-                  disabled={!message.trim() || agentState === 'speaking'}
-                  className={`px-3.5 sm:px-6 py-3 sm:py-3.5 rounded-xl sm:rounded-2xl font-bold text-xs sm:text-sm transition-all flex items-center gap-1.5 sm:gap-2 cursor-pointer shrink-0 ${
-                    message.trim() && agentState !== 'speaking'
-                      ? 'bg-blue-600 hover:bg-blue-700 text-white shadow-lg shadow-blue-600/30'
-                      : isLight
-                      ? 'bg-zinc-100 text-zinc-400 border border-zinc-200 cursor-not-allowed'
-                      : 'bg-zinc-800 text-zinc-500 border border-zinc-800 cursor-not-allowed'
-                  }`}>
-                  <span>Send</span>
-                  <span>✦</span>
-                </button>
-              </div>
-
-            </div>
-
-          </div>
 
         </main>
       )}
@@ -2210,7 +2027,201 @@ function App() {
           <span>Sub-15ms Interruption Reactor</span>
         </div>
       </footer>
-      </main>
+              </main>
+        
+        {/* Right Fixed Chat Copilot (Pinned Global Sidebar) */}
+        <aside className="hidden lg:flex flex-col h-full shrink-0 border-l z-20 transition-all bg-white dark:bg-black border-zinc-200 dark:border-zinc-800" style={{ width: '450px' }}>
+            <div className="h-full w-full overflow-hidden flex flex-col">
+          <div className="flex flex-col gap-3 h-full p-4">
+            
+            {/* Quick Suggestion Prompts for Active Domain */}
+            <div className="w-full max-w-full min-w-0 overflow-hidden">
+              <div className="w-full max-w-full min-w-0 flex items-center gap-2 overflow-x-auto pb-1.5 no-scrollbar text-xs">
+                {activeDomainObj.samplePrompts.map((q, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => {
+                      if (q.dev) setSelectedDevice(q.dev);
+                      handleSendMessage(q.text);
+                    }}
+                    className={`px-3 py-1.5 rounded-full shadow-sm transition text-left text-xs font-medium flex items-center gap-1.5 cursor-pointer whitespace-nowrap shrink-0 border ${
+                      isLight
+                        ? "bg-white hover:bg-blue-50 text-zinc-800 hover:text-blue-700 border-zinc-200 hover:border-blue-400"
+                        : "bg-zinc-900 hover:bg-blue-600 text-zinc-300 hover:text-white border-zinc-800 hover:border-blue-600"
+                    }`}>
+                    <span>✦</span>
+                    <span className="truncate max-w-[280px] sm:max-w-none">{q.text}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Chat Transcript Card */}
+            <div className={`w-full min-w-0 p-3.5 sm:p-6 rounded-2xl sm:rounded-3xl border shadow-2xl flex flex-col h-[500px] lg:h-[640px] justify-between ${
+              isLight ? "bg-white border-zinc-200 text-zinc-900 shadow-zinc-200/50" : "bg-zinc-950 border-zinc-800 text-white"
+            }`}>
+              
+              {/* Messages Scroll View */}
+              <div className="overflow-y-auto pr-1 sm:pr-2 flex flex-col gap-3 sm:gap-4 flex-1 min-h-0">
+                {transcript.map((msg, idx) => (
+                  <div 
+                    key={idx} 
+                    className={`flex flex-col gap-1.5 ${msg.role === 'user' ? 'items-end' : 'items-start'}`}>
+                    
+                    <div className="flex items-center gap-2 text-[11px] text-zinc-500 px-1">
+                      <span>{msg.role === 'user' ? '👤 Operator' : `✦ INFERICS Pulse (${activeDomainObj.shortName})`}</span>
+                      <span>·</span>
+                      <span>{msg.timestamp}</span>
+                    </div>
+
+                    {/* Fast-Path Filler Bubble */}
+                    {msg.filler && (
+                      <div className={`px-3 py-1.5 rounded-xl border text-xs font-mono ${
+                        isLight ? "bg-white border-zinc-200 text-zinc-800" : "bg-zinc-900 border-zinc-800 text-zinc-300"
+                      }`}>
+                        <span className={`text-[10px] uppercase font-bold mr-2 ${isLight ? "text-zinc-500" : "text-zinc-400"}`}>[Fast-Path ~28ms]:</span>
+                        {msg.filler}
+                      </div>
+                    )}
+
+                    {/* Speech Text Bubble */}
+                    <div className={`p-3 sm:p-4 rounded-xl sm:rounded-2xl text-xs sm:text-sm leading-relaxed max-w-[92%] sm:max-w-[90%] shadow-md ${
+                      msg.role === 'user'
+                        ? 'bg-blue-600 text-white rounded-tr-none shadow-blue-600/30 font-medium'
+                        : msg.interrupted
+                        ? (isLight ? 'bg-rose-50 border border-rose-200 text-rose-900 rounded-tl-none' : 'bg-rose-950/70 border border-rose-800 text-rose-200 rounded-tl-none')
+                        : (isLight ? 'bg-white border border-zinc-200 text-zinc-900 rounded-tl-none' : 'bg-zinc-900 border border-zinc-800 text-white rounded-tl-none')
+                    }`}>
+                      <div 
+                        className="chat-markdown"
+                        dangerouslySetInnerHTML={renderFormattedMarkdown(msg.text, msg.role === 'user')}
+                      />
+                    </div>
+                  </div>
+                ))}
+
+                {/* Live In-Flight Stream */}
+                {(currentStream || currentFiller) && (
+                  <div className="flex flex-col gap-1.5 items-start animate-fadeIn">
+                    <div className="flex items-center gap-2 text-[11px] text-emerald-600 dark:text-emerald-400 px-1 font-mono font-medium">
+                      <span>✦ Streaming from Groq LPU (qwen/qwen3.8-27b)</span>
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping"></span>
+                    </div>
+
+                    {currentFiller && (
+                      <div className={`px-3 py-1.5 rounded-xl border text-xs font-mono ${
+                        isLight ? "bg-white border-zinc-200 text-zinc-800" : "bg-zinc-900 border-zinc-800 text-zinc-300"
+                      }`}>
+                        <span className={`text-[10px] uppercase font-bold mr-2 ${isLight ? "text-zinc-500" : "text-zinc-400"}`}>[Fast-Path &lt;50ms]:</span>
+                        {currentFiller}
+                      </div>
+                    )}
+
+                    {currentStream && (
+                      <div className={`p-3 sm:p-4 rounded-xl sm:rounded-2xl text-xs sm:text-sm leading-relaxed max-w-[92%] sm:max-w-[90%] rounded-tl-none shadow-xl flex items-start gap-1 ${
+                        isLight ? "bg-white border border-zinc-200 text-zinc-900" : "bg-zinc-900 border border-zinc-700 text-white"
+                      }`}>
+                        <div 
+                          className="chat-markdown flex-1"
+                          dangerouslySetInnerHTML={renderFormattedMarkdown(currentStream, false)}
+                        />
+                        <span className="inline-block w-2 h-4 bg-emerald-500 mt-1 animate-pulse flex-shrink-0"></span>
+                      </div>
+                    )}
+                  </div>
+                )}
+                <div ref={chatBottomRef} />
+              </div>
+
+              {/* Voice Typing Active Indicator Banner */}
+              {isListening && (
+                <div className={`mt-2.5 px-3 py-1.5 sm:py-2 rounded-xl border text-xs font-mono flex items-center justify-between animate-pulse ${
+                  isLight ? "bg-emerald-50 border-emerald-200 text-emerald-800" : "bg-zinc-900 border-zinc-800 text-zinc-300"
+                }`}>
+                  <div className="flex items-center gap-1.5 sm:gap-2 text-[11px] sm:text-xs">
+                    <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+                    <span>🎙️ Voice Typing Active... Speak naturally</span>
+                  </div>
+                  <button 
+                    onClick={toggleVoiceTyping}
+                    className="px-2 py-0.5 sm:py-1 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-[10px] sm:text-[11px] font-bold cursor-pointer transition">
+                    Stop
+                  </button>
+                </div>
+              )}
+
+              {/* Chat Input Bar */}
+              <div className={`mt-3 sm:mt-4 pt-3 sm:pt-4 border-t flex items-center gap-2 sm:gap-3 w-full min-w-0 ${
+                isLight ? "border-zinc-200" : "border-zinc-800"
+              }`}>
+                <div className="relative flex-1 min-w-0 flex items-center">
+                  <textarea
+                    rows={1}
+                    value={message}
+                    onChange={(e) => {
+                      setMessage(e.target.value);
+                      e.target.style.height = 'auto';
+                      e.target.style.height = Math.min(e.target.scrollHeight, 120) + 'px';
+                    }}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' && !e.shiftKey) {
+                        e.preventDefault();
+                        handleSendMessage();
+                        e.target.style.height = 'auto';
+                      }
+                    }}
+                    placeholder={isListening ? "🎙️ Listening... Speak naturally now..." : `Ask ${activeDomainObj.name}...`}
+                    className={`w-full min-w-0 border rounded-xl sm:rounded-2xl pl-3 sm:pl-4 pr-11 sm:pr-12 py-3 sm:py-3.5 text-xs sm:text-sm transition shadow-inner resize-none overflow-y-auto ${
+                      isLight
+                        ? "bg-white border-zinc-300 text-zinc-900 placeholder:text-zinc-400 focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600"
+                        : "bg-black border-zinc-800 text-white placeholder:text-zinc-500 focus:outline-none focus:border-zinc-500 focus:ring-1 focus:ring-zinc-500"
+                    }`}
+                  />
+                  
+                  {/* Voice Typing Microphone Button */}
+                  <button
+                    type="button"
+                    onClick={toggleVoiceTyping}
+                    title={isListening ? "Stop Voice Typing" : "Start Voice Typing (Microphone)"}
+                    className={`absolute right-1.5 sm:right-2.5 p-1.5 sm:p-2 rounded-lg sm:rounded-xl transition-all flex items-center justify-center cursor-pointer shrink-0 ${
+                      isListening
+                        ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/40 animate-pulse'
+                        : isLight
+                        ? 'bg-white hover:bg-blue-600 text-zinc-700 hover:text-white border border-zinc-200 hover:border-blue-600'
+                        : 'bg-zinc-900 hover:bg-blue-600 text-zinc-300 hover:text-white border border-zinc-800 hover:border-blue-600'
+                    }`}>
+                    <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z" />
+                      <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
+                      <line x1="12" x2="12" y1="19" y2="22" />
+                    </svg>
+                  </button>
+                </div>
+                
+                {/* Send Button */}
+                <button
+                  onClick={() => handleSendMessage()}
+                  disabled={!message.trim() || agentState === 'speaking'}
+                  className={`px-3.5 sm:px-6 py-3 sm:py-3.5 rounded-xl sm:rounded-2xl font-bold text-xs sm:text-sm transition-all flex items-center gap-1.5 sm:gap-2 cursor-pointer shrink-0 ${
+                    message.trim() && agentState !== 'speaking'
+                      ? 'bg-blue-600 hover:bg-blue-700 text-white shadow-lg shadow-blue-600/30'
+                      : isLight
+                      ? 'bg-zinc-100 text-zinc-400 border border-zinc-200 cursor-not-allowed'
+                      : 'bg-zinc-800 text-zinc-500 border border-zinc-800 cursor-not-allowed'
+                  }`}>
+                  <span>Send</span>
+                  <span>✦</span>
+                </button>
+              </div>
+
+            </div>
+
+          </div>
+
+            </div>
+        </aside>
+      </div>
+
     </div>
   );
 }
