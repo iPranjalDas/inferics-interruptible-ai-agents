@@ -175,8 +175,8 @@ def build_slide_1(slide):
             ("Team Name: ", "CollegeName_TeamName"),
             ("College Name: ", "[Your Institution / University Name]"),
             ("Lead Member: ", "Pranjal Das (Lead) — dpranjal366@gmail.com"),
-            ("Team Members: ", "[Member 2] • [Member 3] • [Member 4]"),
-            ("Submission GitHub: ", "https://github.com/[Your-Org]/[Your-Repo]"),
+            ("Team Members: ", "[Member 2] • [Member 3]"),
+            ("Submission GitHub: ", "https://github.com/iPranjalDas/samsung-prism-genai-hackathon"),
             ("GitHub Release Tag: ", "PRISM_GENAI_HACKATHON_Y2026"),
             ("Live Production URL: ", "https://samsung-galaxy-ai.vercel.app"),
             ("Official PPT File: ", "CollegeName_TeamName_Submission.pptx"),
@@ -848,7 +848,7 @@ def build_slide_12(slide):
 
     details = [
         ("Theme: ", "Theme 05 — Interruptible Real-Time Agents (Samsung PRISM Hackathon 2026–27)"),
-        ("Public GitHub Repository: ", "https://github.com/[Your-Org]/[Your-Repo] (Tag: PRISM_GENAI_HACKATHON_Y2026)"),
+        ("Public GitHub Repository: ", "https://github.com/iPranjalDas/samsung-prism-genai-hackathon (Tag: PRISM_GENAI_HACKATHON_Y2026)"),
         ("Live Production Cloud: ", "https://samsung-galaxy-ai.vercel.app"),
         ("Lead Contact: ", "Pranjal Das (Lead) — dpranjal366@gmail.com")
     ]
