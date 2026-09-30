@@ -467,7 +467,10 @@ function App() {
       isInitialMount.current = false;
       return;
     }
-    chatBottomRef.current?.scrollIntoView({ behavior: "smooth" });
+    if (chatBottomRef.current) {
+      const parent = chatBottomRef.current.parentNode;
+      parent.scrollTop = parent.scrollHeight;
+    }
   }, [transcript, currentStream]);
 
   // Web Speech Recognition Engine Setup (Native Voice Typing)
