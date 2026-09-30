@@ -1036,32 +1036,34 @@ function App() {
           {/* Main Logo & AI Badge */}
           <div className="flex flex-col items-center justify-center mb-16">
             <h1 
-              className="text-white text-5xl sm:text-6xl md:text-7xl font-extrabold tracking-[0.25em] md:tracking-[0.3em] uppercase ml-[0.125em] md:ml-[0.15em]" 
+              className="text-white text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-[0.25em] md:tracking-[0.3em] uppercase ml-[0.125em] md:ml-[0.15em] transition-transform ease-out" 
               style={{ 
                 fontFamily: 'Arial, sans-serif',
-                textShadow: '0 0 15px rgba(255,255,255,0.6), 0 0 30px rgba(255,255,255,0.2)' 
+                textShadow: '0 0 12px rgba(255,255,255,0.8), 0 0 25px rgba(255,255,255,0.4)',
+                transform: bootStage === 'fading' ? 'scale(1.05)' : 'scale(1)',
+                transitionDuration: '2.5s'
               }}>
               SAMSUNG
             </h1>
             
-            <div className="flex items-center gap-2 mt-6">
-              <span className="text-white text-sm">✦</span>
-              <span className="text-white text-sm font-medium tracking-wide">Galaxy AI</span>
+            <div className="flex items-center gap-2 mt-5 opacity-90">
+              <span className="text-white text-xs sm:text-sm">✦</span>
+              <span className="text-white text-xs sm:text-sm font-medium tracking-wide">Galaxy AI</span>
             </div>
 
             {/* Loading Bar */}
-            <div className="w-40 h-[1px] bg-zinc-800 mt-5 relative overflow-hidden">
-              <div className="absolute top-0 left-0 h-full bg-white w-1/3 animate-ping" style={{ animationDuration: '1.5s' }}></div>
-              <div className="absolute top-0 left-0 h-full bg-white transition-all duration-1500 ease-out" style={{ width: bootStage === 'fading' ? '100%' : '30%' }}></div>
+            <div className="w-32 sm:w-40 h-[2px] bg-zinc-800 mt-5 relative overflow-hidden rounded-full">
+              <div className="absolute top-0 left-0 h-full bg-white w-1/3 animate-ping" style={{ animationDuration: '1.2s' }}></div>
+              <div className="absolute top-0 left-0 h-full bg-white transition-all duration-[2000ms] ease-in-out" style={{ width: bootStage === 'fading' ? '100%' : '20%' }}></div>
             </div>
           </div>
 
           {/* Secured by Knox Footer */}
-          <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex items-center gap-2 text-zinc-500 opacity-80">
+          <div className="absolute bottom-8 sm:bottom-10 left-1/2 -translate-x-1/2 flex items-center gap-2 text-zinc-500 opacity-70">
             <svg width="12" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
             </svg>
-            <span className="text-[10px] font-semibold tracking-[0.25em] uppercase">Secured by Knox</span>
+            <span className="text-[9px] sm:text-[10px] font-semibold tracking-[0.25em] uppercase">Secured by Knox</span>
           </div>
         </div>
       )}
