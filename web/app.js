@@ -806,10 +806,18 @@ function App() {
         total_ms: totalLatency
       });
 
-      // Update Cancellation Visualizer Card
+      // Update Cancellation Visualizer Card dynamically based on chat activity
+      const dynamicInFlight = currentStream 
+        ? `Stream: ${currentStream.substring(0, 32)}...`
+        : (transcript.length > 0 ? `Query: ${transcript[transcript.length - 1].text.substring(0, 32)}...` : "In-Flight Stream & API Worker");
+      const dynamicReplacement = "Awaiting replacement task dispatch...";
+      
+      const randId1 = Math.floor(Math.random() * 900) + 100;
+      const randId2 = Math.floor(Math.random() * 900) + 100;
+
       setCancellationState({
-        inFlightTask: { id: "call_017", name: "In-Flight Stream & API Worker", status: "cancelled", latencyMs: totalLatency },
-        replacementTask: { id: "call_020", name: "Clean Replacement Dispatcher", status: "executing" },
+        inFlightTask: { id: `call_${randId1}`, name: dynamicInFlight, status: "cancelled", latencyMs: totalLatency },
+        replacementTask: { id: `call_${randId2}`, name: dynamicReplacement, status: "executing" },
         lastCancelledAt: "Just now (<15ms)",
         phantomSideEffects: 0
       });
