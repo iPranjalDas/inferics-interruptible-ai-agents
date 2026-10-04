@@ -317,6 +317,8 @@ const cleanMobileSpeechDeduplication = (text) => {
 function App() {
   const theme = "light";
   const [bootStage, setBootStage] = useState("visible");
+  const [isDeckOpen, setIsDeckOpen] = useState(false);
+  const [currentSlide, setCurrentSlide] = useState(0);
   useEffect(() => {
     const fadeTimer = setTimeout(() => setBootStage("fading"), 1500);
     const hideTimer = setTimeout(() => setBootStage("hidden"), 2500);
@@ -991,7 +993,7 @@ function App() {
     /* @__PURE__ */ React.createElement("span", null, "Reset")
   ),
   /* CUSTOM PITCH DECK MODAL */
-    false && /* @__PURE__ */ React.createElement("div", { className: "fixed inset-0 z-[9999] flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 sm:p-8 animate-fadeIn" },
+    isDeckOpen && /* @__PURE__ */ React.createElement("div", { className: "fixed inset-0 z-[9999] flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 sm:p-8 animate-fadeIn" },
       /* @__PURE__ */ React.createElement("div", { className: "relative w-full max-w-5xl aspect-video rounded-2xl shadow-2xl overflow-hidden flex flex-col bg-white text-zinc-900" },
         /* @__PURE__ */ React.createElement("button", { onClick: () => setIsDeckOpen(false), className: "absolute top-4 right-4 z-10 p-2 bg-black/10 hover:bg-black/20 rounded-full transition" },
           /* @__PURE__ */ React.createElement("span", { className: "font-bold" }, "✕")
