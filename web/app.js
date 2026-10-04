@@ -733,51 +733,137 @@ function App() {
       let accumulatedText = "";
       let localFiller = "";
 
-      while (true) {
-        const { value, done } = await reader.read();
-        if (done) break;
+let isFinalized = false;
+      try {
+let isFinalized = false;
+      try {
+        while (true) {
+          const { value, done } = await reader.read();
+          if (done) break;
 
-        buffer += decoder.decode(value, { stream: true });
-        const lines = buffer.split("\n\n");
-        buffer = lines.pop() || "";
+          buffer += decoder.decode(value, { stream: true });
+          // Normalize CRLF to LF to prevent trailing \r
+          buffer = buffer.replace(/\r\n/g, "\n");
+          const lines = buffer.split("\n\n");
+          buffer = lines.pop() || "";
 
-        for (const block of lines) {
-          const eventMatch = block.match(/event: (.+)/);
-          const dataMatch = block.match(/data: (.+)/);
+          for (const block of lines) {
+            if (!block.trim()) continue;
+            const eventMatch = block.match(/event:\s*(.+)/);
+            const dataMatch = block.match(/data:\s*([\s\S]+)/);
 
-          if (eventMatch && dataMatch) {
-            const eventType = eventMatch[1].trim();
-            const data = JSON.parse(dataMatch[1].trim());
-
-            if (eventType === "fast_path_filler") {
-              localFiller = data.filler;
-              setCurrentFiller(data.filler);
-              addEventToBus("FAST_PATH", `Emitted filler (${data.latency_ms || 28}ms): "${data.filler.slice(0, 32)}..."`);
-            } else if (eventType === "slot_update") {
-              if (data.ledger) {
-                setSlotLedger(prev => ({ ...prev, ...(data.ledger || {}) }));
-                addEventToBus("DAG_UPDATE", `Slot state updated: ${data.ledger.intent} (v#${data.ledger.version || 2})`);
+            if (dataMatch) {
+              let parsedData = {};
+              try {
+                parsedData = JSON.parse(dataMatch[1].trim());
+              } catch (parseErr) {
+                // Support raw string or plain text tokens
+                parsedData = { token: dataMatch[1].trim() };
               }
-            } else if (eventType === "token") {
-              accumulatedText += data.token;
-              setCurrentStream(accumulatedText);
-            } else if (eventType === "done") {
-              setTranscript(prev => [
-                ...prev,
-                {
-                  role: "assistant",
-                  text: accumulatedText,
-                  filler: localFiller,
-                  timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-                }
-              ]);
-              setCurrentStream("");
-              setCurrentFiller("");
-              setAgentState("idle");
-              addEventToBus("DONE", `Completed response in ${data.total_tokens || 140} tokens`);
+
+              const eventType = eventMatch 
+                ? eventMatch[1].trim() 
+                : (parsedData.type || parsedData.event || "token");
+
+              if (eventType === "fast_path_filler" || eventType === "fast_path") {
+                localFiller = parsedData.filler || parsedData.text || "";
+                setCurrentFiller(localFiller);
+                addEventToBus("FAST_PATH", `Emitted filler (${parsedData.latency_ms || 28}ms): "${localFiller.slice(0, 32)}..."`);
+              } else if (eventType === "slot_update" || eventType === "ledger_update") {
+                const incomingLedger = parsedData.ledger || parsedData;
+                setSlotLedger(prev => ({ ...prev, ...incomingLedger }));
+                addEventToBus("DAG_UPDATE", `Slot state updated: ${incomingLedger.intent || 'DAG'} (v#${incomingLedger.version || prev?.version || 2})`);
+              } else if (eventType === "token") {
+                const tokenText = parsedData.token !== undefined ? parsedData.token : (parsedData.text || "");
+                accumulatedText += tokenText;
+                setCurrentStream(accumulatedText);
+              } else if (eventType === "interrupted") {
+                isFinalized = true;
+                setTranscript(prev => [
+                  ...prev,
+                  {
+                    role: "assistant",
+                    text: accumulatedText + " **[⚡ HALTED BY BACKEND INTERRUPT]**",
+                    filler: localFiller,
+                    interrupted: true,
+                    timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+                  }
+                ]);
+                setCurrentStream("");
+                setCurrentFiller("");
+                setAgentState("interrupted");
+                setTimeout(() => setAgentState("idle"), 1500);
+              } else if (eventType === "error") {
+                isFinalized = true;
+                setTranscript(prev => [
+                  ...prev,
+                  {
+                    role: "assistant",
+                    text: `⚠️ **Agent Error**: ${parsedData.error || "Inference pipeline failure"}`,
+                    timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+                  }
+                ]);
+                setCurrentStream("");
+                setCurrentFiller("");
+                setAgentState("idle");
+              } else if (eventType === "done") {
+                isFinalized = true;
+                setTranscript(prev => [
+                  ...prev,
+                  {
+                    role: "assistant",
+                    text: accumulatedText,
+                    filler: localFiller,
+                    timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+                  }
+                ]);
+                setCurrentStream("");
+                setCurrentFiller("");
+                setAgentState("idle");
+                addEventToBus("DONE", `Completed response in ${parsedData.total_tokens || 140} tokens`);
+              }
             }
           }
         }
+      } finally {
+        reader.cancel().catch(() => {});
+        reader.releaseLock();
+      }
+
+      // Safeguard against missing "done" event on stream completion
+      if (!isFinalized && accumulatedText) {
+        setTranscript(prev => [
+          ...prev,
+          {
+            role: "assistant",
+            text: accumulatedText,
+            filler: localFiller,
+            timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+          }
+        ]);
+        setCurrentStream("");
+        setCurrentFiller("");
+        setAgentState("idle");
+      }
+      } finally {
+        reader.cancel().catch(() => {});
+        reader.releaseLock();
+      }
+
+      // Safeguard against missing "done" event on stream completion
+      if (!isFinalized && accumulatedText) {
+        setTranscript(prev => [
+          ...prev,
+          {
+            role: "assistant",
+            text: accumulatedText,
+            filler: localFiller,
+            timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+          }
+        ]);
+        setCurrentStream("");
+        setCurrentFiller("");
+        setAgentState("idle");
       }
     } catch (err) {
       if (err.name === "AbortError") {
