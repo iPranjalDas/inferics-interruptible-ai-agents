@@ -1085,6 +1085,13 @@ function App() {
 
             {/* Mobile Actions: X-Ray & State */}
             <div className="flex lg:hidden items-center gap-1.5 shrink-0">
+              <a
+                href="/CollegeName_TeamName_Submission.pptx"
+                download
+                className="text-xs font-semibold px-2.5 py-1 rounded-full border transition flex items-center gap-1 cursor-pointer bg-purple-50 text-purple-800 hover:border-purple-300 border-purple-200">
+                <span>📊</span>
+                <span>Deck</span>
+              </a>
               <button
                 type="button"
                 onClick={() => setXrayMode(!xrayMode)}
@@ -1138,6 +1145,13 @@ function App() {
 
           {/* Desktop Right Controls (X-Ray Toggle & Reset) */}
           <div className="hidden lg:flex items-center gap-2.5 shrink-0">
+            <a
+              href="/CollegeName_TeamName_Submission.pptx"
+              download
+              className="text-xs font-bold px-3 py-1.5 rounded-full border transition flex items-center gap-1.5 cursor-pointer bg-purple-50 text-purple-800 hover:bg-purple-100 border-purple-200 shadow-sm">
+              <span>📊</span>
+              <span>Pitch Deck</span>
+            </a>
             {/* Judge-Winning Weapon 1: X-Ray Mode Toggle */}
             <button
               type="button"
