@@ -1,4 +1,3 @@
-import { jsxDEV as _jsxDEV } from "react/jsx-dev-runtime";
 const {
   useState,
   useEffect,
@@ -150,163 +149,150 @@ const App = () => {
       panelsRef.current.push(el);
     }
   };
-  return /*#__PURE__*/_jsxDEV("div", {
+  return /*#__PURE__*/React.createElement("div", {
     style: dashboardStyles,
-    ref: containerRef,
-    children: [/*#__PURE__*/_jsxDEV("header", {
-      style: headerStyles,
-      children: [/*#__PURE__*/_jsxDEV("div", {
-        style: {
-          display: 'flex',
-          alignItems: 'center',
-          gap: '1rem'
-        },
-        children: [/*#__PURE__*/_jsxDEV("div", {
-          style: {
-            width: '12px',
-            height: '12px',
-            borderRadius: '50%',
-            background: '#00FFFF',
-            boxShadow: '0 0 10px #00FFFF, 0 0 20px #00FFFF'
-          }
-        }, void 0, false), /*#__PURE__*/_jsxDEV("h1", {
-          style: {
-            margin: 0,
-            fontSize: '1.5rem',
-            letterSpacing: '4px',
-            fontWeight: 300,
-            color: '#FFFFFF'
-          },
-          children: ["NEXUS ", /*#__PURE__*/_jsxDEV("span", {
-            style: {
-              color: '#00FFFF',
-              fontWeight: 600
-            },
-            children: "AGENT OS"
-          }, void 0, false)]
-        }, void 0, true)]
-      }, void 0, true), /*#__PURE__*/_jsxDEV("div", {
-        style: {
-          fontSize: '0.8rem',
-          letterSpacing: '2px',
-          color: 'rgba(255,255,255,0.4)'
-        },
-        children: "SECURE KERNEL v9.4.2 // SAMSUNG ADVANCED LABS"
-      }, void 0, false)]
-    }, void 0, true), /*#__PURE__*/_jsxDEV("div", {
-      style: gridStyles,
-      children: [/*#__PURE__*/_jsxDEV("div", {
-        style: metricsGridStyles,
-        children: [{
-          title: 'CORE COMPUTE',
-          value: '94.2%',
-          color: '#00FFFF'
-        }, {
-          title: 'NEURAL LINK',
-          value: 'ACTIVE',
-          color: '#FF0055'
-        }, {
-          title: 'VRAM ALLOCATION',
-          value: '14.8 GB',
-          color: '#B000FF'
-        }].map((metric, i) => /*#__PURE__*/_jsxDEV("div", {
-          style: metricPanelStyles,
-          ref: addPanelRef,
-          children: [/*#__PURE__*/_jsxDEV("div", {
-            style: {
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              width: '4px',
-              height: '100%',
-              background: metric.color,
-              boxShadow: `0 0 15px ${metric.color}`
-            }
-          }, void 0, false), /*#__PURE__*/_jsxDEV("h3", {
-            style: {
-              margin: '0 0 0.5rem 0',
-              fontSize: '0.8rem',
-              color: 'rgba(255,255,255,0.5)',
-              letterSpacing: '2px'
-            },
-            children: metric.title
-          }, void 0, false), /*#__PURE__*/_jsxDEV("div", {
-            style: {
-              fontSize: '2rem',
-              fontWeight: 200,
-              color: '#FFF',
-              textShadow: `0 0 20px ${metric.color}66`
-            },
-            children: metric.value
-          }, void 0, false)]
-        }, i, true))
-      }, void 0, false), /*#__PURE__*/_jsxDEV("div", {
-        style: chatContainerStyles,
-        children: [/*#__PURE__*/_jsxDEV("div", {
-          style: {
-            flexGrow: 1,
-            overflowY: 'auto',
-            padding: '1rem',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '1rem'
-          },
-          ref: chatRef,
-          children: messages.map((msg, i) => /*#__PURE__*/_jsxDEV("div", {
-            style: {
-              alignSelf: msg.role === 'user' ? 'flex-end' : 'flex-start',
-              background: msg.role === 'user' ? 'rgba(0, 255, 255, 0.1)' : 'rgba(255, 255, 255, 0.05)',
-              border: msg.role === 'user' ? '1px solid rgba(0, 255, 255, 0.2)' : '1px solid rgba(255, 255, 255, 0.1)',
-              padding: '1rem 1.5rem',
-              borderRadius: '12px',
-              maxWidth: '80%',
-              color: msg.role === 'user' ? '#00FFFF' : '#E0E0E0',
-              fontFamily: msg.role === 'agent' ? "'JetBrains Mono', monospace" : "inherit",
-              fontSize: '0.95rem',
-              letterSpacing: msg.role === 'agent' ? '1px' : 'normal',
-              boxShadow: msg.role === 'user' ? '0 4px 20px rgba(0, 255, 255, 0.1)' : 'none'
-            },
-            children: [/*#__PURE__*/_jsxDEV("div", {
-              style: {
-                fontSize: '0.6rem',
-                color: 'rgba(255,255,255,0.3)',
-                marginBottom: '0.4rem',
-                textTransform: 'uppercase'
-              },
-              children: msg.role
-            }, void 0, false), msg.text]
-          }, i, true))
-        }, void 0, false), /*#__PURE__*/_jsxDEV("form", {
-          onSubmit: handleSendMessage,
-          style: {
-            marginTop: '1rem',
-            position: 'relative'
-          },
-          children: [/*#__PURE__*/_jsxDEV("input", {
-            type: "text",
-            value: inputValue,
-            onChange: e => setInputValue(e.target.value),
-            placeholder: "ENTER DIRECTIVE...",
-            style: inputStyles
-          }, void 0, false), /*#__PURE__*/_jsxDEV("div", {
-            style: {
-              position: 'absolute',
-              right: '1rem',
-              top: '50%',
-              transform: 'translateY(-50%)',
-              width: '8px',
-              height: '8px',
-              background: '#00FFFF',
-              borderRadius: '50%',
-              boxShadow: '0 0 10px #00FFFF',
-              animation: 'pulse 2s infinite'
-            }
-          }, void 0, false)]
-        }, void 0, true)]
-      }, void 0, true)]
-    }, void 0, true), /*#__PURE__*/_jsxDEV("style", {
-      dangerouslySetInnerHTML: {
-        __html: `
+    ref: containerRef
+  }, /*#__PURE__*/React.createElement("header", {
+    style: headerStyles
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      alignItems: 'center',
+      gap: '1rem'
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      width: '12px',
+      height: '12px',
+      borderRadius: '50%',
+      background: '#00FFFF',
+      boxShadow: '0 0 10px #00FFFF, 0 0 20px #00FFFF'
+    }
+  }), /*#__PURE__*/React.createElement("h1", {
+    style: {
+      margin: 0,
+      fontSize: '1.5rem',
+      letterSpacing: '4px',
+      fontWeight: 300,
+      color: '#FFFFFF'
+    }
+  }, "NEXUS ", /*#__PURE__*/React.createElement("span", {
+    style: {
+      color: '#00FFFF',
+      fontWeight: 600
+    }
+  }, "AGENT OS"))), /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: '0.8rem',
+      letterSpacing: '2px',
+      color: 'rgba(255,255,255,0.4)'
+    }
+  }, "SECURE KERNEL v9.4.2 // SAMSUNG ADVANCED LABS")), /*#__PURE__*/React.createElement("div", {
+    style: gridStyles
+  }, /*#__PURE__*/React.createElement("div", {
+    style: metricsGridStyles
+  }, [{
+    title: 'CORE COMPUTE',
+    value: '94.2%',
+    color: '#00FFFF'
+  }, {
+    title: 'NEURAL LINK',
+    value: 'ACTIVE',
+    color: '#FF0055'
+  }, {
+    title: 'VRAM ALLOCATION',
+    value: '14.8 GB',
+    color: '#B000FF'
+  }].map((metric, i) => /*#__PURE__*/React.createElement("div", {
+    key: i,
+    style: metricPanelStyles,
+    ref: addPanelRef
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      width: '4px',
+      height: '100%',
+      background: metric.color,
+      boxShadow: `0 0 15px ${metric.color}`
+    }
+  }), /*#__PURE__*/React.createElement("h3", {
+    style: {
+      margin: '0 0 0.5rem 0',
+      fontSize: '0.8rem',
+      color: 'rgba(255,255,255,0.5)',
+      letterSpacing: '2px'
+    }
+  }, metric.title), /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: '2rem',
+      fontWeight: 200,
+      color: '#FFF',
+      textShadow: `0 0 20px ${metric.color}66`
+    }
+  }, metric.value)))), /*#__PURE__*/React.createElement("div", {
+    style: chatContainerStyles
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      flexGrow: 1,
+      overflowY: 'auto',
+      padding: '1rem',
+      display: 'flex',
+      flexDirection: 'column',
+      gap: '1rem'
+    },
+    ref: chatRef
+  }, messages.map((msg, i) => /*#__PURE__*/React.createElement("div", {
+    key: i,
+    style: {
+      alignSelf: msg.role === 'user' ? 'flex-end' : 'flex-start',
+      background: msg.role === 'user' ? 'rgba(0, 255, 255, 0.1)' : 'rgba(255, 255, 255, 0.05)',
+      border: msg.role === 'user' ? '1px solid rgba(0, 255, 255, 0.2)' : '1px solid rgba(255, 255, 255, 0.1)',
+      padding: '1rem 1.5rem',
+      borderRadius: '12px',
+      maxWidth: '80%',
+      color: msg.role === 'user' ? '#00FFFF' : '#E0E0E0',
+      fontFamily: msg.role === 'agent' ? "'JetBrains Mono', monospace" : "inherit",
+      fontSize: '0.95rem',
+      letterSpacing: msg.role === 'agent' ? '1px' : 'normal',
+      boxShadow: msg.role === 'user' ? '0 4px 20px rgba(0, 255, 255, 0.1)' : 'none'
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: '0.6rem',
+      color: 'rgba(255,255,255,0.3)',
+      marginBottom: '0.4rem',
+      textTransform: 'uppercase'
+    }
+  }, msg.role), msg.text))), /*#__PURE__*/React.createElement("form", {
+    onSubmit: handleSendMessage,
+    style: {
+      marginTop: '1rem',
+      position: 'relative'
+    }
+  }, /*#__PURE__*/React.createElement("input", {
+    type: "text",
+    value: inputValue,
+    onChange: e => setInputValue(e.target.value),
+    placeholder: "ENTER DIRECTIVE...",
+    style: inputStyles
+  }), /*#__PURE__*/React.createElement("div", {
+    style: {
+      position: 'absolute',
+      right: '1rem',
+      top: '50%',
+      transform: 'translateY(-50%)',
+      width: '8px',
+      height: '8px',
+      background: '#00FFFF',
+      borderRadius: '50%',
+      boxShadow: '0 0 10px #00FFFF',
+      animation: 'pulse 2s infinite'
+    }
+  })))), /*#__PURE__*/React.createElement("style", {
+    dangerouslySetInnerHTML: {
+      __html: `
         @keyframes pulse {
           0% { opacity: 0.5; box-shadow: 0 0 5px #00FFFF; }
           50% { opacity: 1; box-shadow: 0 0 15px #00FFFF; }
@@ -317,12 +303,11 @@ const App = () => {
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 10px; }
       `
-      }
-    }, void 0, false)]
-  }, void 0, true);
+    }
+  }));
 };
 
 // Render directly to root to simplify the build process without exports
 const rootNode = document.getElementById('root');
 const root = ReactDOM.createRoot(rootNode);
-root.render(/*#__PURE__*/_jsxDEV(App, {}, void 0, false));
+root.render(/*#__PURE__*/React.createElement(App, null));
