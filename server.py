@@ -39,6 +39,7 @@ except Exception as e:
 # Active streams tracker for sub-15ms barge-in interruption
 active_streams: dict[str, dict] = {}
 stream_lock = threading.Lock()
+ledger_lock = threading.Lock()  # FIX: Protect slot_ledger from race conditions
 
 # Samsung Ecosystem Device State (Living Simulation)
 samsung_devices = {
@@ -318,8 +319,9 @@ class SamsungAgentRequestHandler(SimpleHTTPRequestHandler):
 
         # Update Slot Ledger with Rollback / Cancel event
         global slot_ledger
-        slot_ledger["version"] += 1
-        slot_ledger["history"].append({
+        with ledger_lock:  # FIX: Thread-safe mutation
+          slot_ledger["version"] += 1
+          slot_ledger["history"].append({
             "event": "barge_in_interrupt",
             "timestamp": time.time(),
             "latency_ms": round(latency_ms, 2),
@@ -374,13 +376,22 @@ class SamsungAgentRequestHandler(SimpleHTTPRequestHandler):
         self.send_header("Access-Control-Allow-Origin", "*")
         self.end_headers()
 
-        def send_sse(event_type: str, data: dict):
+        client_connected = True
+
+        def send_sse(event_type: str, data: dict) -> bool:
+            nonlocal client_connected
+            if not client_connected:
+                return False
             msg = f"event: {event_type}\ndata: {json.dumps(data)}\n\n".encode("utf-8")
             try:
                 self.wfile.write(msg)
                 self.wfile.flush()
-            except Exception:
-                pass
+                return True
+            except (BrokenPipeError, ConnectionResetError, OSError):
+                # FIX: Client disconnected — signal cancellation to abort upstream Groq stream
+                client_connected = False
+                cancel_event.set()
+                return False
 
         # 1. Emit Fast-Path Conversational Filler (<50ms)
         filler_text = self._get_fast_path_filler(message, device_info["name"])
@@ -390,8 +401,7 @@ class SamsungAgentRequestHandler(SimpleHTTPRequestHandler):
             "device": device_info["name"],
             "timestamp": time.time()
         })
-        time.sleep(0.04)
-
+        # FIX: Removed hardcoded 40ms sleep — fast-path must be <15ms
         # 2. Update Slot Ledger
         self._update_slot_ledger_from_message(message, device_info["name"])
         send_sse("slot_update", {
@@ -421,17 +431,23 @@ class SamsungAgentRequestHandler(SimpleHTTPRequestHandler):
                 )
 
                 for chunk in stream:
-                    if cancel_event.is_set():
-                        send_sse("interrupted", {
-                            "reason": "User barge-in signal received",
-                            "interrupted": True
-                        })
+                    # FIX: Check BOTH cancel_event (barge-in) and client_connected (disconnect)
+                    if cancel_event.is_set() or not client_connected:
+                        if client_connected:
+                            send_sse("interrupted", {
+                                "reason": "User barge-in signal received",
+                                "interrupted": True
+                            })
+                        try:
+                            stream.response.close()  # Forcefully abort upstream Groq TCP socket
+                        except Exception:
+                            pass
                         break
 
                     delta = chunk.choices[0].delta.content if chunk.choices else ""
                     if delta:
-                        send_sse("token", {"token": delta})
-                        time.sleep(0.005) # Emulate natural speech cadence
+                        if not send_sse("token", {"token": delta}):
+                            break  # Client disconnected mid-stream, abort immediately
 
                 send_sse("done", {"session_id": session_id, "interrupted": cancel_event.is_set()})
 
@@ -447,7 +463,6 @@ class SamsungAgentRequestHandler(SimpleHTTPRequestHandler):
                         send_sse("interrupted", {"interrupted": True})
                         break
                     send_sse("token", {"token": part})
-                    time.sleep(0.08)
 
                 send_sse("done", {"session_id": session_id, "interrupted": cancel_event.is_set()})
 

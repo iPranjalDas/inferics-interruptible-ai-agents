@@ -806,10 +806,18 @@ function App() {
         total_ms: totalLatency
       });
 
-      // Update Cancellation Visualizer Card
+      // Update Cancellation Visualizer Card dynamically based on chat activity
+      const dynamicInFlight = currentStream 
+        ? `Stream: ${currentStream.substring(0, 32)}...`
+        : (transcript.length > 0 ? `Query: ${transcript[transcript.length - 1].text.substring(0, 32)}...` : "In-Flight Stream & API Worker");
+      const dynamicReplacement = "Awaiting replacement task dispatch...";
+      
+      const randId1 = Math.floor(Math.random() * 900) + 100;
+      const randId2 = Math.floor(Math.random() * 900) + 100;
+
       setCancellationState({
-        inFlightTask: { id: "call_017", name: "In-Flight Stream & API Worker", status: "cancelled", latencyMs: totalLatency },
-        replacementTask: { id: "call_020", name: "Clean Replacement Dispatcher", status: "executing" },
+        inFlightTask: { id: `call_${randId1}`, name: dynamicInFlight, status: "cancelled", latencyMs: totalLatency },
+        replacementTask: { id: `call_${randId2}`, name: dynamicReplacement, status: "executing" },
         lastCancelledAt: "Just now (<15ms)",
         phantomSideEffects: 0
       });
@@ -1085,6 +1093,13 @@ function App() {
 
             {/* Mobile Actions: X-Ray & State */}
             <div className="flex lg:hidden items-center gap-1.5 shrink-0">
+              <a
+                href="/CollegeName_TeamName_Submission.pptx"
+                download
+                className="text-xs font-semibold px-2.5 py-1 rounded-full border transition flex items-center gap-1 cursor-pointer bg-purple-50 text-purple-800 hover:border-purple-300 border-purple-200">
+                <span>📊</span>
+                <span>Deck</span>
+              </a>
               <button
                 type="button"
                 onClick={() => setXrayMode(!xrayMode)}
@@ -1138,6 +1153,13 @@ function App() {
 
           {/* Desktop Right Controls (X-Ray Toggle & Reset) */}
           <div className="hidden lg:flex items-center gap-2.5 shrink-0">
+            <a
+              href="/CollegeName_TeamName_Submission.pptx"
+              download
+              className="text-xs font-bold px-3 py-1.5 rounded-full border transition flex items-center gap-1.5 cursor-pointer bg-purple-50 text-purple-800 hover:bg-purple-100 border-purple-200 shadow-sm">
+              <span>📊</span>
+              <span>Pitch Deck</span>
+            </a>
             {/* Judge-Winning Weapon 1: X-Ray Mode Toggle */}
             <button
               type="button"
@@ -2077,7 +2099,7 @@ function App() {
               </main>
         
         {/* Right Fixed Chat Copilot (Pinned Global Sidebar) */}
-        <aside className="hidden lg:flex flex-col h-full shrink-0 border-l z-20 transition-all bg-white dark:bg-black border-zinc-200 dark:border-zinc-800 w-[30%] min-w-[340px] max-w-[450px]">
+        <aside className="flex flex-col h-full shrink-0 border-l z-20 transition-all bg-white dark:bg-black border-zinc-200 dark:border-zinc-800 w-full lg:w-[30%] lg:min-w-[340px] lg:max-w-[450px]">
             <div className="h-full w-full overflow-hidden flex flex-col">
           <div className="flex flex-col gap-3 h-full p-4">
             

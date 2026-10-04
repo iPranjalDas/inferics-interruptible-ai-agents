@@ -235,7 +235,7 @@ The server simulates 15 connected Samsung ecosystem devices accessible via REST 
 
 ```
 .
-├── PITCH_DECK.md            # Strict 8-Slide Pitch Deck (Stage 4 Deliverable)
+├── PITCH_DECK.md            # Comprehensive 12-Slide Pitch Deck (Stage 4 Deliverable)
 ├── README.md                # Comprehensive Architecture Specification (This Document)
 ├── run_fdb_benchmark.sh     # One-Command Official FDB-v3 Reproduction Harness
 ├── server.py                # Real-Time SSE Server & Sub-15ms Interruption Micro-Reactor
@@ -335,7 +335,7 @@ Judges can reproduce the entire benchmark and evaluate the engine using a single
 
 ```bash
 # Clone the repository and navigate to the directory
-cd "samsong interruptable 2.0 (WSL and Linux)"
+cd "SAMSUNG PRISM NEW UPGRADE"
 
 # Install dependencies (if not using pre-packaged runtime)
 pip install -r requirements.txt

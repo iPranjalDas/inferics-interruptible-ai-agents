@@ -2099,7 +2099,7 @@ function App() {
               </main>
         
         {/* Right Fixed Chat Copilot (Pinned Global Sidebar) */}
-        <aside className="hidden lg:flex flex-col h-full shrink-0 border-l z-20 transition-all bg-white dark:bg-black border-zinc-200 dark:border-zinc-800 w-[30%] min-w-[340px] max-w-[450px]">
+        <aside className="flex flex-col h-full shrink-0 border-l z-20 transition-all bg-white dark:bg-black border-zinc-200 dark:border-zinc-800 w-full lg:w-[30%] lg:min-w-[340px] lg:max-w-[450px]">
             <div className="h-full w-full overflow-hidden flex flex-col">
           <div className="flex flex-col gap-3 h-full p-4">
             

@@ -13,13 +13,13 @@
 - **Theme ID:** Theme 05 — Interruptible Real-Time Agents
 - **Project Title:** INFERICS Pulse (NEXUS-DUAL Engine v2.0)
 - **Team Name:** `CollegeName_TeamName` *(Strict Samsung Naming Convention)*
-- **College Name:** `[Your Institution / University Name]`
+- **College Name:** `SRM Institute of Science and Technology, KTR`
 - **Member Details:**
-  - **Member 1 (Lead):** `[Lead Name]` — `[lead.email@domain.com]`
+  - **Member 1 (Lead):** `Pranjal Das` — `pranjal.das@srmist.edu.in`
   - **Member 2:** `[Member 2 Name]` — `[member2.email@domain.com]`
   - **Member 3:** `[Member 3 Name]` — `[member3.email@domain.com]`
   - **Member 4:** `[Member 4 Name]` — `[member4.email@domain.com]`
-- **Submission GitHub Link:** `https://github.com/[Your-Org]/[Your-Repo]` *(Release Tag: `PRISM_GENAI_HACKATHON_Y2026`)*
+- **Submission GitHub Link:** `https://github.com/iPranjalDas/samsung-prism-genai-hackathon` *(Release Tag: `PRISM_GENAI_HACKATHON_Y2026`)*
 - **Live Production Deployment:** `https://samsung-galaxy-ai.vercel.app`
 - **Official Submission PPT File:** `CollegeName_TeamName_Submission.pptx`
 
@@ -164,8 +164,8 @@ INFERICS Pulse completely replaces traditional turn-taking with a **concurrent, 
 
 ### 5-Minute Unedited Demonstration Video & Live Deployment
 - **Live Production URL:** `https://samsung-galaxy-ai.vercel.app`
-- **Demo Video Link:** `https://youtu.be/[DEMO_LINK]` *(Max 5-minute single-take walkthrough)*
-- **Benchmark Reproduction:** `bash run_fdb_benchmark.sh` (Linux/WSL) or `run_fdb_benchmark.bat` (Windows)
+- **Demo Video Link:** `https://github.com/iPranjalDas/samsung-prism-genai-hackathon` *(Max 5-minute single-take walkthrough)*
+- **Benchmark Reproduction:** `bash run_fdb_benchmark.sh` (Linux/WSL)
 
 ### Sub-15ms Barge-In Execution Lifecycle (Millisecond Trace)
 The following millisecond-by-millisecond execution trace demonstrates an active barge-in self-correction:  
@@ -211,7 +211,7 @@ The web client provides a live telemetry monitor rendering:
 ```
 ┌──────────────────────────────────────────────────────────────────────────────────────┐
 │ CLIENT INTERACTION LAYER                                                             │
-│ • Next.js 14 App Router (React 19) • Tailwind CSS UI • Lucide Iconography            │
+│ • Vanilla JS + React UMD • Custom CSS + Tailwind AOT • Python SSE Backend           │
 │ • Web Audio API (16kHz PCM Linear Audio Stream) • HTML5 Canvas Video Frame Grabber   │
 ├──────────────────────────────────────────────────────────────────────────────────────┤
 │ ORCHESTRATION & AGENT PROTOCOL LAYER                                                 │
