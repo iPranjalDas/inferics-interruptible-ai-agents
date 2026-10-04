@@ -406,3 +406,25 @@ input:focus {
 .dark aside.shrink-0 {
     border-right: 1px solid #27272a !important;
 }
+
+@media (max-width: 1023px) {
+  aside.shrink-0 {
+    width: 100% !important;
+    min-width: 100% !important;
+    max-width: 100% !important;
+    border-left: none !important;
+    border-right: none !important;
+    border-top: 1px solid #e5e7eb !important;
+  }
+}
+
+@media (max-width: 1023px) {
+  aside.shrink-0 {
+    width: 100% !important;
+    min-width: 100% !important;
+    max-width: 100% !important;
+    border-left: none !important;
+    border-right: none !important;
+    border-top: 1px solid #e5e7eb !important;
+  }
+}
