@@ -77,3 +77,37 @@ chmod +x run_fdb_benchmark.sh
 
 ---
 ## 🏆 Built for Samsung PRISM (Theme 05)
+
+---
+
+## 📂 Repository Structure
+
+```text
+📦 inferics-interruptible-ai-agents
+ ┣ 📂 api/                # Vercel Serverless Functions (Tri-Mode Router & Intent Gates)
+ ┣ 📂 images/             # Documentation, HUD visualizers, and UI Mockup Images
+ ┣ 📂 public/             # Static Frontend serving the React/Tailwind Bundle
+ ┣ 📂 scripts/            # Hardware-specific evaluation and utility scripts
+ ┣ 📂 src/                # Core Python Engine (Fast-Path Reactor, Immutable Slot Ledger)
+ ┣ 📂 tests/              # Pytest FDB-v3 evaluation harness
+ ┣ 📜 INFERICS_Theme05_AI_Disclosure.md  # Official Theme 05 AI Usage Disclosure Form
+ ┣ 📜 PITCH_DECK.md       # Master 12-Slide Pitch Deck Presentation
+ ┣ 📜 README.md           # Master Technical Architecture Documentation
+ ┣ 📜 livekit_agent.py    # WebRTC LiveKit Voice Agent Cloud Worker
+ ┣ 📜 run_fdb_benchmark.sh# FDB-v3 Automated Evaluation Suite Entrypoint
+ ┣ 📜 samsung_knowledge_base.json # 23-Product Offline Corpus for Semantic RAG
+ ┣ 📜 server.py           # Master Asyncio Event Loop & Backend definitions
+ ┗ 📜 vercel.json         # Vercel Serverless Deployment & Rewrite Configuration
+```
+
+---
+
+## 👥 About Team INFERICS
+
+We are **Team INFERICS**, representing SRM Institute of Science and Technology, KTR. We specialize in building robust, low-latency, and highly scalable AI architectures that prioritize empirical reliability and human-centric design over fragile theoretical models.
+
+- **Pranjal Das** — *Team Lead & Principal Architect*
+- **Contact:** pranjal.das@srmist.edu.in
+- **Organization:** SRM Institute of Science and Technology, KTR
+
+*Built with precision for the Samsung PRISM GenAI Hackathon 2026 (Theme 05).*
