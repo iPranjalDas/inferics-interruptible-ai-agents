@@ -44,7 +44,14 @@ class FastPathReactor:
         # Has filler been spoken for current turn?
         self._filler_spoken_for_turn: bool = False
 
-    def register_task(self, call_id: str, task: asyncio.Task, timestamp_ms: float) -> None:
+
+    async def cancel_all_in_flight(self) -> list:
+        cancelled = list(self.active_tasks.keys())
+        for task in self.active_tasks.values():
+            task.cancel()
+        self.active_tasks.clear()
+        return cancelled
+\n    def register_task(self, call_id: str, task: asyncio.Task, timestamp_ms: float) -> None:
         """Registers a spawned background slow-path task for immediate cancellation tracking."""
         self.active_tasks[call_id] = task
         self.task_start_times[call_id] = timestamp_ms

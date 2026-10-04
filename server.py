@@ -490,12 +490,16 @@ class SamsungAgentRequestHandler(SimpleHTTPRequestHandler):
     def _update_slot_ledger_from_message(self, text: str, device_name: str):
         global slot_ledger
         with ledger_lock:  # FIX: Thread-safe ledger update
-        low = text.lower()
+            low = text.lower()
         intent = "general_query"
         action = "assist"
         confidence = 0.95
 
-        if any(w in low for w in ["flight", "book", "trip", "ticket"]):
+        if any(w in low for w in ["cancel", "stop", "wait"]):
+            intent = "interruption_abort"
+            action = "halt_immediate"
+            confidence = 1.0
+        elif any(w in low for w in ["flight", "book", "trip", "ticket"]):
             intent = "flight_reservation"
             action = "route_optimization"
             confidence = 0.98
@@ -507,10 +511,6 @@ class SamsungAgentRequestHandler(SimpleHTTPRequestHandler):
             intent = "laundry_automation"
             action = "optiwash_cycle_tune"
             confidence = 0.96
-        elif any(w in low for w in ["cancel", "stop", "wait"]):
-            intent = "interruption_abort"
-            action = "halt_immediate"
-            confidence = 1.0
 
         slot_ledger["version"] += 1
         slot_ledger["intent"] = intent

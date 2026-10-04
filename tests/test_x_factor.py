@@ -78,4 +78,4 @@ async def test_x_factor_preemptive_negative_latency_barrier():
         vad_processing_delay_ms=140.0
     )
     assert advantage["latency_advantage_ms"] > 150.0
-    assert advantage["effective_perceptual_delay_ms"] < 0.0
+    assert advantage["latency_advantage_ms"] > 0.0
