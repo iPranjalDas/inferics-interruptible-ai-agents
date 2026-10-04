@@ -1,7 +1,7 @@
 {
   "name": "samsung-galaxy-ai-agent",
   "version": "1.0.0",
-  "type": "module",
+  
   "private": true,
   "description": "SAMSUNG Galaxy AI x NEXUS-DUAL Real-Time Web UI and Intelligent Agent",
   "scripts": {
