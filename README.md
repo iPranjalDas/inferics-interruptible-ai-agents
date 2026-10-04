@@ -102,12 +102,22 @@ chmod +x run_fdb_benchmark.sh
 
 ---
 
-## 👥 About Team INFERICS
+---
 
-We are **Team INFERICS**, representing SRM Institute of Science and Technology, KTR. We specialize in building robust, low-latency, and highly scalable AI architectures that prioritize empirical reliability and human-centric design over fragile theoretical models.
+## 🏷️ Git Release Tag Verification
 
-- **Pranjal Das** — *Team Lead & Principal Architect*
-- **Contact:** pranjal.das@srmist.edu.in
+This repository is versioned and tagged on branch `main` as:
+
+```bash
+git describe --tags
+# Outputs: PRISM_GENAI_HACKATHON_Y2026
+```
+
+---
+
+## 👥 Team INFERICS & Acknowledgments
+
+- **Team:** INFERICS
+- **Lead Developer:** Pranjal Das
 - **Organization:** SRM Institute of Science and Technology, KTR
-
-*Built with precision for the Samsung PRISM GenAI Hackathon 2026 (Theme 05).*
+- **Submission:** Samsung PRISM GenAI Hackathon (3rd Edition, 2026–27) · Theme 05
