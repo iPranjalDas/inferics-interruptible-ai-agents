@@ -989,8 +989,8 @@ function App() {
     },
     /* @__PURE__ */ React.createElement("span", null, "\u21BA"),
     /* @__PURE__ */ React.createElement("span", null, "Reset")
-
-    /* CUSTOM PITCH DECK MODAL */
+  ),
+  /* CUSTOM PITCH DECK MODAL */
     isDeckOpen && /* @__PURE__ */ React.createElement("div", { className: "fixed inset-0 z-[9999] flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 sm:p-8 animate-fadeIn" },
       /* @__PURE__ */ React.createElement("div", { className: "relative w-full max-w-5xl aspect-video rounded-2xl shadow-2xl overflow-hidden flex flex-col bg-white text-zinc-900" },
         /* @__PURE__ */ React.createElement("button", { onClick: () => setIsDeckOpen(false), className: "absolute top-4 right-4 z-10 p-2 bg-black/10 hover:bg-black/20 rounded-full transition" },
@@ -1248,7 +1248,7 @@ function App() {
     },
     /* @__PURE__ */ React.createElement("span", null, "Send"),
     /* @__PURE__ */ React.createElement("span", null, "\u2726")
-  ))))))));
+  )))))));
 }
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(/* @__PURE__ */ React.createElement(App, null));
