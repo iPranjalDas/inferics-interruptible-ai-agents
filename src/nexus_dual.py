@@ -147,8 +147,25 @@ class NexusDualAgent:
             if m_date:
                 self.ledger.update_slot("date", m_date.group(1), locked=True)
 
-            # Speculative Read-Only Search Trigger (Latency hiding)
-            if not event.is_final_turn and "destination" in self.ledger.current_snapshot.slots:
+            # Speculative Read-Only Search Trigger (Latency hiding) + RRF Prefetch
+            if not event.is_final_turn:
+                dest_val = self.ledger.current_snapshot.slots.get("destination")
+                target_intent = self.ledger.current_snapshot.intent
+                
+                # Dynamic Speculative Hybrid Search
+                if target_intent != "idle" and dest_val:
+                    call_id = await self.slow_path.execute_tool_call(
+                        tool_name="hybrid_rrf_search",
+                        arguments={"query": dest_val, "k": 60},
+                        timestamp_ms=event.timestamp_ms,
+                        is_final_turn=False
+                    )
+                    if call_id:
+                        worker_task = asyncio.create_task(
+                            self.slow_path.run_tool_worker(call_id, "hybrid_rrf_search", {"query": dest_val}, latency_ms=120.0)
+                        )
+                        self.fast_path.register_task(call_id, worker_task, event.timestamp_ms)
+            elif not event.is_final_turn and "destination" in self.ledger.current_snapshot.slots:
                 dest_val = self.ledger.current_snapshot.slots["destination"].value
                 # Only trigger if not already searching for this destination
                 call_id = await self.slow_path.execute_tool_call(

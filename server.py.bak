@@ -410,10 +410,6 @@ class SamsungAgentRequestHandler(SimpleHTTPRequestHandler):
             "ledger": slot_ledger
         })
 
-        # RAG Upgrade: Context Sharpening & Grounding injection
-        from src.rag_pipeline import context_sharpening, compute_rrf
-        sharpened_context = context_sharpening(text=", ".join(device_info.get("features", [])) + " " + json.dumps(device_info.get("telemetry", {})), chunk_id=f"DOC-{device_info.get("id", "UNKNOWN").upper()}", beta=0.5)
-
         # 3. Stream Groq LPU Completion
         system_prompt = (
             f"You are Samsung Galaxy AI, the unified real-time voice and product intelligence assistant for the Samsung Galaxy and SmartThings ecosystem. "

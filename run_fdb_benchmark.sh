@@ -15,6 +15,9 @@ set -euo pipefail
 # Trap SIGTERM/SIGINT for clean process teardown (no zombie workers)
 cleanup() {
     echo "[CLEANUP] Caught signal. Terminating all background workers..."
+    trap - SIGTERM SIGINT EXIT
+    trap - SIGTERM SIGINT EXIT
+    trap - SIGTERM SIGINT EXIT
     kill 0 2>/dev/null || true
     wait 2>/dev/null || true
     echo "[CLEANUP] All workers stopped cleanly."

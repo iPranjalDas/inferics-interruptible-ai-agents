@@ -27,7 +27,7 @@
 | Item | Status | Deliverable & File Location |
 | :--- | :---: | :--- |
 | **1. Source Code** | ✅ Complete | Complete Next.js/React Frontend UI (`web/`), FastAPI Backend (`server.py`), and RAG Knowledge Base (`samsung_knowledge_base.json`). |
-| **2. Presentation** | ✅ Complete | 12-Slide Master Pitch Deck: [`PITCH_DECK.md`](./PITCH_DECK.md) containing the problem statement, architecture diagrams, and competitive moat. |
+| **2. Presentation** | ✅ Complete | 8-Slide Master Pitch Deck: [`PITCH_DECK.md`](./PITCH_DECK.md) containing the problem statement, architecture diagrams, and competitive moat. |
 | **3. Video** | ✅ Complete | High-Definition Demo Video (Youtube Link in Submission Portal) |
 | **4. AI Disclosure** | ✅ Complete | Official AI Usage Disclosure: [`INFERICS_Theme05_AI_Disclosure.md`](./INFERICS_Theme05_AI_Disclosure.md) attached in repo root. |
 | **5. Detailed README** | ✅ Complete | This master documentation detailing the Fast-Path Reactor, Immutable Slot Ledger, and Tri-Mode RAG architecture. |
@@ -91,7 +91,7 @@ chmod +x run_fdb_benchmark.sh
  ┣ 📂 src/                # Core Python Engine (Fast-Path Reactor, Immutable Slot Ledger)
  ┣ 📂 tests/              # Pytest FDB-v3 evaluation harness
  ┣ 📜 INFERICS_Theme05_AI_Disclosure.md  # Official Theme 05 AI Usage Disclosure Form
- ┣ 📜 PITCH_DECK.md       # Master 12-Slide Pitch Deck Presentation
+ ┣ 📜 PITCH_DECK.md       # Master 8-Slide Pitch Deck Presentation
  ┣ 📜 README.md           # Master Technical Architecture Documentation
  ┣ 📜 livekit_agent.py    # WebRTC LiveKit Voice Agent Cloud Worker
  ┣ 📜 run_fdb_benchmark.sh# FDB-v3 Automated Evaluation Suite Entrypoint

@@ -16,10 +16,7 @@
 - **College Name:** `SRM Institute of Science and Technology, KTR`
 - **Member Details:**
   - **Member 1 (Lead):** `Pranjal Das` — `pranjal.das@srmist.edu.in`
-  - **Member 2:** `[Member 2 Name]` — `[member2.email@domain.com]`
-  - **Member 3:** `[Member 3 Name]` — `[member3.email@domain.com]`
-  - **Member 4:** `[Member 4 Name]` — `[member4.email@domain.com]`
-- **Submission GitHub Link:** `https://youtu.be/LERGdrp1xLY` *(Release Tag: `PRISM_GENAI_HACKATHON_Y2026`)*
+- **Submission GitHub Link:** `https://github.com/iPranjalDas/samsung-prism-genai-hackathon.git` *(Release Tag: `PRISM_GENAI_HACKATHON_Y2026`)*
 - **Live Production Deployment:** `https://inferics-samsung-prism.vercel.app`
 - **Official Submission PPT File:** `SRMIST_Inferics_Submission.pptx`
 
