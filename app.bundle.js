@@ -931,11 +931,7 @@ function App() {
       className: "text-[11px] sm:text-xs px-2.5 py-1 rounded-full bg-blue-600 hover:bg-blue-700 text-white font-bold transition shadow-sm cursor-pointer whitespace-nowrap"
     },
     "\u2726 Galaxy AI OS"
-  )), /* @__PURE__ */ React.createElement("div", { className: "flex lg:hidden items-center gap-1.5 shrink-0" }, /* @__PURE__ */ React.createElement(
-    "a",
-    {
-      href: "/CollegeName_TeamName_Submission.pptx",
-      download: true,
+  )), /* @__PURE__ */ React.createElement("div", { className: "flex lg:hidden items-center gap-1.5 shrink-0" }, /* @__PURE__ */ React.createElement("button", { onClick: () => setIsDeckOpen(true), type: "button",
       className: "text-xs font-semibold px-2.5 py-1 rounded-full border transition flex items-center gap-1 cursor-pointer bg-purple-50 text-purple-800 hover:border-purple-300 border-purple-200"
     },
     /* @__PURE__ */ React.createElement("span", null, "📊"),
@@ -963,11 +959,7 @@ function App() {
       /* @__PURE__ */ React.createElement("span", null, dom.shortName),
       isCurrentActive && /* @__PURE__ */ React.createElement("span", { className: "w-1.5 h-1.5 rounded-full bg-white animate-pulse" })
     );
-  }))), /* @__PURE__ */ React.createElement("div", { className: "hidden lg:flex items-center gap-2.5 shrink-0" }, /* @__PURE__ */ React.createElement(
-    "a",
-    {
-      href: "/CollegeName_TeamName_Submission.pptx",
-      download: true,
+  }))), /* @__PURE__ */ React.createElement("div", { className: "hidden lg:flex items-center gap-2.5 shrink-0" }, /* @__PURE__ */ React.createElement("button", { onClick: () => setIsDeckOpen(true), type: "button",
       className: "text-xs font-bold px-3 py-1.5 rounded-full border transition flex items-center gap-1.5 cursor-pointer bg-purple-50 text-purple-800 hover:bg-purple-100 border-purple-200 shadow-sm"
     },
     /* @__PURE__ */ React.createElement("span", null, "📊"),
