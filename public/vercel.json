@@ -1,0 +1,22 @@
+{
+  "version": 2,
+  "cleanUrls": true,
+  "rewrites": [
+    { "source": "/api/devices", "destination": "/api/devices.js" },
+    { "source": "/api/health", "destination": "/api/health.js" },
+    { "source": "/api/state", "destination": "/api/state.js" },
+    { "source": "/api/interrupt", "destination": "/api/interrupt.js" },
+    { "source": "/api/device/control", "destination": "/api/device-control.js" },
+    { "source": "/api/chat", "destination": "/api/chat.js" }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "no-cache, no-store, must-revalidate" },
+        { "key": "Pragma", "value": "no-cache" },
+        { "key": "Expires", "value": "0" }
+      ]
+    }
+  ]
+}
