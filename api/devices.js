@@ -1,3 +1,4 @@
+export const maxDuration = 60;
 // Vercel Serverless Function: GET /api/devices
 const samsungDevices = {
   s25_ultra: {
