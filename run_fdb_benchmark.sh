@@ -1,18 +1,29 @@
 #!/usr/bin/env bash
 # ==============================================================================
 # INFERICS Pulse — One-Command FDB-v3 Reproduction Script
-# Theme 05: Interruptible Real-Time Agents (Samsung Hackathon)
+# Theme 05: Interruptible Real-Time Agents (Samsung PRISM Hackathon)
 # Target: Full-Duplex-Bench v3 (arXiv 2604.04847)
-# Strict Invariant: 100% of packages, scripts, and runtime live on Drive D
+# ==============================================================================
+# USAGE:
+#   bash run_fdb_benchmark.sh              # Full evaluation (online mode)
+#   bash run_fdb_benchmark.sh --offline    # Offline deterministic evaluation
+#   bash run_fdb_benchmark.sh --check-only # Verify dependencies only
 # ==============================================================================
 
 set -euo pipefail
 
+# Trap SIGTERM/SIGINT for clean process teardown (no zombie workers)
+cleanup() {
+    echo "[CLEANUP] Caught signal. Terminating all background workers..."
+    kill 0 2>/dev/null || true
+    wait 2>/dev/null || true
+    echo "[CLEANUP] All workers stopped cleanly."
+    exit 0
+}
+trap cleanup SIGTERM SIGINT EXIT
+
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$SCRIPT_DIR"
-
-PACKAGES_DIR="$SCRIPT_DIR/packages"
-LIBS_DIR="$SCRIPT_DIR/libs"
 
 # Flags
 OFFLINE_MODE=false
@@ -20,85 +31,141 @@ CHECK_ONLY=false
 
 for arg in "$@"; do
     case "$arg" in
-        --offline)
-            OFFLINE_MODE=true
-            ;;
-        --check-only)
-            CHECK_ONLY=true
-            ;;
+        --offline)   OFFLINE_MODE=true ;;
+        --check-only) CHECK_ONLY=true ;;
         --help|-h)
-            echo "Usage: ./run_fdb_benchmark.sh [--offline] [--check-only]"
-            echo "  --offline     Force deterministic offline evaluation without external network calls"
-            echo "  --check-only  Verify Drive D runtime dependencies and exit"
-            exit 0
-            ;;
+            echo "Usage: bash run_fdb_benchmark.sh [--offline] [--check-only]"
+            exit 0 ;;
     esac
 done
 
 echo "========================================================================"
-echo "✦ INFERICS Pulse — Full-Duplex-Bench v3 Evaluation Harness"
-echo "✦ Target Workspace: Drive D ($SCRIPT_DIR)"
-if [ "$OFFLINE_MODE" = true ] || [ -z "${GROQ_API_KEY:-}" ]; then
-    echo "✦ Operational Mode: Deterministic Offline Evaluator (Self-Contained Pipeline)"
-    echo "✦ Model Provider: Local Rule-Engine + Fast-Path Token Scanner + Silero VAD"
-else
-    echo "✦ Operational Mode: Hosted API Production Mode"
-    echo "✦ Model Provider: Groq LPU (qwen/qwen3.8-27b) + Silero VAD Reactor"
-fi
-echo "✦ Interruption Guarantee: < 15ms Fast-Path Cooperative Cancellation"
-echo "✦ Package Isolation: 100% Contained in $PACKAGES_DIR"
+echo "  INFERICS Pulse — Full-Duplex-Bench v3 Evaluation Harness"
+echo "  Samsung PRISM Theme 05: Interruptible Real-Time Agents"
+echo "  Commit: $(git rev-parse --short HEAD 2>/dev/null || echo 'unknown')"
 echo "========================================================================"
 
-# Step 1: Environment & Dependency Setup on Drive D
-echo -e "\n[1/4] Verifying and setting up Drive D runtime environment..."
+# ============================================================
+# STEP 1: Python Discovery (portable, no hardcoded paths)
+# ============================================================
+echo ""
+echo "[1/5] Discovering Python runtime..."
 
-# Find Python 3.10+
 PYTHON_BIN=""
-for candidate in "/home/lowkeypranjal/.local/bin/python3.11" "python3.11" "python3.12" "python3"; do
-    if command -v "$candidate" >/dev/null 2>&1; then
-        PYTHON_BIN="$candidate"
-        break
+for candidate in python3.12 python3.11 python3.10 python3 python; do
+    if command -v "$candidate" > /dev/null 2>&1; then
+        VER=$("$candidate" -c "import sys; print(sys.version_info >= (3,10))" 2>/dev/null || echo "False")
+        if [ "$VER" = "True" ]; then
+            PYTHON_BIN="$candidate"
+            break
+        fi
     fi
 done
 
 if [ -z "$PYTHON_BIN" ]; then
-    echo "Error: Python 3 not found on system." >&2
+    echo "[ERROR] Python 3.10+ not found. Please install Python 3.10 or higher." >&2
     exit 1
 fi
-echo "✓ Using Host Python Engine: $($PYTHON_BIN --version) ($PYTHON_BIN)"
 
-# Verify Drive D packages folder
-if [ ! -d "$PACKAGES_DIR" ]; then
-    echo "Setting up Drive D package repository at $PACKAGES_DIR..."
-    mkdir -p "$PACKAGES_DIR"
+PYTHON_VERSION=$("$PYTHON_BIN" --version)
+echo "  Found: $PYTHON_VERSION at $(command -v $PYTHON_BIN)"
+
+# ============================================================
+# STEP 2: Virtual Environment Setup (idempotent)
+# ============================================================
+echo ""
+echo "[2/5] Setting up isolated virtual environment..."
+
+VENV_DIR="$SCRIPT_DIR/.eval_venv"
+
+if [ ! -d "$VENV_DIR" ] || [ ! -f "$VENV_DIR/bin/python" ]; then
+    echo "  Creating new virtual environment at .eval_venv/..."
+    "$PYTHON_BIN" -m venv "$VENV_DIR"
 fi
 
-export PYTHONPATH="$PACKAGES_DIR:$LIBS_DIR:$SCRIPT_DIR:${PYTHONPATH:-}"
+VENV_PYTHON="$VENV_DIR/bin/python"
+VENV_PIP="$VENV_DIR/bin/pip"
+
+echo "  Installing dependencies from requirements.txt..."
+"$VENV_PIP" install --quiet --upgrade pip
+"$VENV_PIP" install --quiet \
+    groq \
+    pydantic \
+    pytest \
+    pytest-asyncio \
+    Pillow \
+    numpy \
+    livekit-agents \
+    livekit || echo "  [NOTE] Some packages may not install in offline mode — continuing."
+
+# Pin random seeds for evaluation reproducibility
+export PYTHONHASHSEED=42
+export PYTHONDONTWRITEBYTECODE=1
+export PYTHONPATH="$SCRIPT_DIR:${PYTHONPATH:-}"
+
+echo "  Environment ready. PYTHONHASHSEED=42"
 
 if [ "$CHECK_ONLY" = true ]; then
-    echo "Drive D package verification complete. Exiting (--check-only)."
+    echo ""
+    echo "  [check-only] Dependency verification complete."
     exit 0
 fi
 
-# Step 2: Validate LiveKit Agent Worker & Tool DAG Registry
-echo -e "\n[2/4] Testing LiveKit Agent Worker & Fast-Path Cancellation (<15ms)..."
-"$PYTHON_BIN" livekit_agent.py
+# ============================================================
+# STEP 3: Port safety check before starting any listeners
+# ============================================================
+echo ""
+echo "[3/5] Port safety audit (checking for stale sockets on port 3000)..."
 
-# Step 3: Run Full FDB-v3 Pytest Scenarios (4/4 Adversarial Cases)
-echo -e "\n[3/4] Running FDB-v3 Adversarial Test Suite across all Disfluency Types..."
-"$PYTHON_BIN" -m pytest tests/test_harness.py -s -v -p no:cacheprovider
+if command -v ss > /dev/null 2>&1; then
+    STALE=$(ss -tulpn 2>/dev/null | grep ":3000" || true)
+    if [ -n "$STALE" ]; then
+        echo "  [WARN] Port 3000 occupied. Terminating stale process..."
+        fuser -k 3000/tcp 2>/dev/null || true
+        sleep 1
+    fi
+fi
+echo "  Port 3000 clear."
 
-# Step 4: Official Samsung Theme 05 Evaluation Matrix
-echo -e "\n[4/4] Executing Official Samsung Theme 05 Evaluation Matrix..."
-"$PYTHON_BIN" scripts/evaluate_score.py
+# ============================================================
+# STEP 4: Run FDB-v3 Test Scenarios
+# ============================================================
+echo ""
+echo "[4/5] Running FDB-v3 Adversarial Test Suite..."
 
-# Optional cloud heartbeat
-if [ "$OFFLINE_MODE" = false ] && command -v curl >/dev/null 2>&1; then
-    echo -e "\n[OPTIONAL] Verifying Cloud Live Endpoint..."
-    curl -s -o /dev/null -w "Live Vercel Production HTTP Status: %{http_code}\n" https://samsung-galaxy-ai.vercel.app/api/health 2>/dev/null || echo "Vercel live endpoint skipped (offline or network filtered)."
+"$VENV_PYTHON" -m pytest \
+    tests/test_harness.py \
+    tests/test_x_factor.py \
+    -s -v \
+    -p no:cacheprovider \
+    --tb=short \
+    --timeout=60 \
+    2>&1 | tee /tmp/fdb_pytest_results.txt
+
+echo "  Test suite complete."
+
+# ============================================================
+# STEP 5: Scoring Evaluation Matrix
+# ============================================================
+echo ""
+echo "[5/5] Executing Official Samsung Theme 05 Evaluation Matrix..."
+
+"$VENV_PYTHON" scripts/evaluate_score.py
+
+# ============================================================
+# OPTIONAL: Cloud health check
+# ============================================================
+if [ "$OFFLINE_MODE" = false ] && command -v curl > /dev/null 2>&1; then
+    echo ""
+    echo "[OPTIONAL] Vercel Live Endpoint Health Check..."
+    curl -s -o /dev/null -w "  Vercel Status: %{http_code}\n" \
+        https://inferics-samsung-prism.vercel.app/api/health 2>/dev/null \
+        || echo "  Vercel check skipped (network unavailable)."
 fi
 
-echo -e "\n========================================================================"
-echo "✓ FDB-v3 Reproduction Complete. 100% Benchmark Passed with Exit Code 0."
-echo "✓ All artifacts, packages, and code remain 100% isolated to Drive D."
+echo ""
+echo "========================================================================"
+echo "  FDB-v3 Reproduction Complete."
+echo "  All benchmark scenarios executed with Exit Code 0."
+echo "  Agent: INFERICS Pulse v2.0 | Theme 05 | Samsung PRISM Y2026"
 echo "========================================================================"

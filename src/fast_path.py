@@ -20,8 +20,11 @@ from src.slot_ledger import ImmutableSlotLedger
 
 
 # Interruption trigger keywords for voice-native self-correction
+import re as _re
+
 SELF_CORRECTION_TRIGGERS = [
-    "wait", "actually", "no", "hold on", "cancel", "stop", "change that", "make that", "instead"
+    r"\bwait\b", r"\bactually\b", r"\bno\b", r"\bhold on\b",
+    r"\bcancel\b", r"\bstop\b", r"\bchange that\b", r"\bmake that\b", r"\binstead\b"
 ]
 
 
@@ -112,7 +115,7 @@ class FastPathReactor:
 
         # Check for self-correction patterns
         for trigger in SELF_CORRECTION_TRIGGERS:
-            if trigger in lower_text:
+            if _re.search(trigger, lower_text):
                 # User interrupted themselves mid-utterance
                 synth_event = InterruptionSignalEvent(
                     timestamp_ms=event.timestamp_ms,

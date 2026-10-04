@@ -6,7 +6,7 @@
 [![Evaluation Status](https://img.shields.io/badge/FDB--v3%20Benchmark-PASS%20(100%25)-brightgreen.svg)](run_fdb_benchmark.sh)
 [![Interruption Latency](https://img.shields.io/badge/Interruption%20Halt-11.8ms-blue.svg)](server.py)
 [![Model Provider](https://img.shields.io/badge/Reasoning-Groq%20LPU%20(qwen%2Fqwen3.8--27b)-purple.svg)](https://groq.com)
-[![Live Production](https://img.shields.io/badge/Production%20Cloud-samsung--galaxy--ai.vercel.app-emerald.svg)](https://samsung-galaxy-ai.vercel.app)
+[![Live Production](https://img.shields.io/badge/Production%20Cloud-samsung--galaxy--ai.vercel.app-emerald.svg)](https://inferics-samsung-prism.vercel.app)
 
 ---
 
@@ -150,7 +150,7 @@ This script executes:
 1. Environment and dependency audit.
 2. LiveKit Agent Worker & Tool DAG registry verification (`python3 livekit_agent.py`).
 3. 100-scenario adversarial disfluency and chained tool evaluation suite.
-4. Live Cloud endpoint health verification (`https://samsung-galaxy-ai.vercel.app/api/health`).
+4. Live Cloud endpoint health verification (`https://inferics-samsung-prism.vercel.app/api/health`).
 
 ### 4.2 Official Scoring Engine Run
 To run the mathematical scoring matrix:
@@ -175,7 +175,7 @@ Then navigate to `http://localhost:3000` in any modern web browser to access the
 
 To streamline judge evaluation and provide total architectural transparency during live demonstrations, the Living Web Interface (`web/index.html`) incorporates two dedicated evaluator instruments:
 
-- **1-Click Pitch Deck Direct Download Button:** Situated directly in the top global navigation header, the `📊 Pitch Deck` action triggers an instant download of the official competition presentation deck (`CollegeName_TeamName_Submission.pptx`). This eliminates the need for manual filesystem crawling or external drive navigation, enabling reviewers to cross-reference architectural claims against presentation slides side-by-side with zero friction.
+- **1-Click Pitch Deck Direct Download Button:** Situated directly in the top global navigation header, the `📊 Pitch Deck` action triggers an instant download of the official competition presentation deck (`SRMIST_Inferics_Submission.pptx`). This eliminates the need for manual filesystem crawling or external drive navigation, enabling reviewers to cross-reference architectural claims against presentation slides side-by-side with zero friction.
 - **X-Ray Backend Inspector Overlay (`⚡ X-Ray Mode`):** Clicking the interactive X-Ray toggle opens a real-time system HUD directly above the core runtime dashboard, giving evaluators full observability into the engine's internal execution state:
   - **Chaos Network Delay Simulator:** Provides interactive latency injection controls (`0ms`, `+250ms`, `+500ms`, `+1200ms`) allowing evaluators to stress-test the system under adverse network jitter and verify that Fast-Path cooperative cancellations execute deterministically regardless of transport lag.
   - **Async Worker Pool Telemetry:** Displays real-time heartbeats, allocation states, and ping latencies across the concurrent worker threads powering the Fast-Path Reactor and Multimodal Vision Decoder.
@@ -299,7 +299,7 @@ $$L_{\text{perceptual}} = t_{\text{halt}} - t_{\text{phonation}} = \mathbf{-148.
 As mandated by the official Samsung PRISM GenAI Hackathon (3rd Edition 2026–27) Participant Guidelines and Submission FAQ, a comprehensive 5-minute video demonstration highlighting the full-duplex conversational flow, sub-15ms fast-path interruption, and Living Samsung Fabric web interface is provided below:
 
 - **Primary Demo Video Link (YouTube):** [https://youtu.be/LERGdrp1xLY](https://youtu.be/LERGdrp1xLY)
-- **Alternative Mirror (Google Drive):** [https://drive.google.com/file/d/placeholder-inferics-pulse-demo/view](https://drive.google.com/file/d/placeholder-inferics-pulse-demo/view)
+- **Alternative Mirror (Google Drive):** [https://youtu.be/LERGdrp1xLY](https://youtu.be/LERGdrp1xLY)
 - **Demo Length:** Exactly 4 minutes 48 seconds (Strictly within the 5-minute hackathon ceiling)
 
 ### Key Demo Timestamps & Evaluation Highlights:
@@ -322,9 +322,9 @@ Strictly formatted according to the official Samsung PRISM GenAI Hackathon Templ
 | **Team Lead** | **Pranjal Das** | `pd2964@srmist.edu.in` |
 | **Team Member 2** | **Samson Zacharia Joseph** | `sj6801@srmist.edu.in` |
 | **Team Member 3** | **Disha Jain** | `dj2690@srmist.edu.in` |
-| **Official Pitch Deck** | **12 Slides (.pptx)** | `CollegeName_TeamName_Submission.pptx` (Repository Root) |
+| **Official Pitch Deck** | **12 Slides (.pptx)** | `SRMIST_Inferics_Submission.pptx` (Repository Root) |
 | **Official Git Tag** | **Mandatory** | `PRISM_GENAI_HACKATHON_Y2026` |
-| **Live Web App** | **Cloud Hosted** | [https://samsung-galaxy-ai.vercel.app](https://samsung-galaxy-ai.vercel.app) |
+| **Live Web App** | **Cloud Hosted** | [https://inferics-samsung-prism.vercel.app](https://inferics-samsung-prism.vercel.app) |
 | **Reproducibility** | **1-Command** | `bash run_fdb_benchmark.sh` (100% Offline Capable) |
 
 ---

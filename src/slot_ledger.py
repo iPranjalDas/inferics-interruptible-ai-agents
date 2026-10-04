@@ -142,15 +142,15 @@ class ImmutableSlotLedger:
         """Tracks an active in-flight tool call ID."""
         snap = self.current_snapshot
         if call_id not in snap.active_call_ids:
-            snap.active_call_ids.append(call_id)
+            snap.active_call_ids = snap.active_call_ids + [call_id]
 
     def mark_call_cancelled(self, call_id: str) -> None:
         """Marks a call as cancelled and removes it from active list."""
         snap = self.current_snapshot
         if call_id in snap.active_call_ids:
-            snap.active_call_ids.remove(call_id)
+            snap.active_call_ids = [cid for cid in snap.active_call_ids if cid != call_id]
         if call_id not in snap.cancelled_call_ids:
-            snap.cancelled_call_ids.append(call_id)
+            snap.cancelled_call_ids = snap.cancelled_call_ids + [call_id]
 
     def mark_complete(self) -> StateSnapshot:
         """Locks the final snapshot upon valid task completion."""

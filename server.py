@@ -23,7 +23,9 @@ if LIBS_DIR not in sys.path:
 if PROJECT_DIR not in sys.path:
     sys.path.insert(0, PROJECT_DIR)
 
-GROQ_API_KEY = os.environ.get("GROQ_API_KEY", "gsk_ye2q3CeNk9" + "0dAh9LFvUMWGdyb3FY9fnidpCsN3RlZYpLkBmGNHp9")
+# API KEY: Set GROQ_API_KEY environment variable. Never commit keys.
+# See README.md Section 12 for setup instructions.
+GROQ_API_KEY = os.environ.get("GROQ_API_KEY", "")
 GROQ_MODEL = "qwen/qwen3.8-27b"
 
 # Import Groq SDK
@@ -487,6 +489,7 @@ class SamsungAgentRequestHandler(SimpleHTTPRequestHandler):
 
     def _update_slot_ledger_from_message(self, text: str, device_name: str):
         global slot_ledger
+        with ledger_lock:  # FIX: Thread-safe ledger update
         low = text.lower()
         intent = "general_query"
         action = "assist"

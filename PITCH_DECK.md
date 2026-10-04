@@ -1,7 +1,7 @@
 # INFERICS Pulse — Interruptible Agent OS
 ## Samsung Galaxy AI × NEXUS-DUAL Architecture
 ### Theme 05: Interruptible Real-Time Agents | Full-Duplex-Bench v3 Certified
-### Official 12-Slide Submission Deck for Samsung PRISM GenAI Hackathon (3rd Edition 2026–27)
+### Official 8-Slide Submission Deck for Samsung PRISM GenAI Hackathon (3rd Edition 2026–27)
 
 ---
 
@@ -12,16 +12,16 @@
 
 - **Theme ID:** Theme 05 — Interruptible Real-Time Agents
 - **Project Title:** INFERICS Pulse (NEXUS-DUAL Engine v2.0)
-- **Team Name:** `CollegeName_TeamName` *(Strict Samsung Naming Convention)*
+- **Team Name:** `SRMIST_Inferics` *(Strict Samsung Naming Convention)*
 - **College Name:** `SRM Institute of Science and Technology, KTR`
 - **Member Details:**
   - **Member 1 (Lead):** `Pranjal Das` — `pranjal.das@srmist.edu.in`
   - **Member 2:** `[Member 2 Name]` — `[member2.email@domain.com]`
   - **Member 3:** `[Member 3 Name]` — `[member3.email@domain.com]`
   - **Member 4:** `[Member 4 Name]` — `[member4.email@domain.com]`
-- **Submission GitHub Link:** `https://github.com/iPranjalDas/samsung-prism-genai-hackathon` *(Release Tag: `PRISM_GENAI_HACKATHON_Y2026`)*
-- **Live Production Deployment:** `https://samsung-galaxy-ai.vercel.app`
-- **Official Submission PPT File:** `CollegeName_TeamName_Submission.pptx`
+- **Submission GitHub Link:** `https://youtu.be/LERGdrp1xLY` *(Release Tag: `PRISM_GENAI_HACKATHON_Y2026`)*
+- **Live Production Deployment:** `https://inferics-samsung-prism.vercel.app`
+- **Official Submission PPT File:** `SRMIST_Inferics_Submission.pptx`
 
 ```
                ┌────────────────────────────────────────────────────────┐
@@ -163,8 +163,8 @@ INFERICS Pulse completely replaces traditional turn-taking with a **concurrent, 
 ## Slide 5: Demo & Product Walkthrough
 
 ### 5-Minute Unedited Demonstration Video & Live Deployment
-- **Live Production URL:** `https://samsung-galaxy-ai.vercel.app`
-- **Demo Video Link:** `https://github.com/iPranjalDas/samsung-prism-genai-hackathon` *(Max 5-minute single-take walkthrough)*
+- **Live Production URL:** `https://inferics-samsung-prism.vercel.app`
+- **Demo Video Link:** `https://youtu.be/LERGdrp1xLY` *(Max 5-minute single-take walkthrough)*
 - **Benchmark Reproduction:** `bash run_fdb_benchmark.sh` (Linux/WSL)
 
 ### Sub-15ms Barge-In Execution Lifecycle (Millisecond Trace)
@@ -268,139 +268,7 @@ INFERICS Pulse is not merely an isolated benchmark runner; it serves as the real
 
 ---
 
-## Slide 8: Innovation Highlights, Results and LIMITATIONS
-
-### Innovation Highlights
-1. **Decoupled Fast-Path Reactor:** Achieves sub-15ms task cancellation while preserving non-blocking async loops.
-2. **Strict Idempotency Barrier:** Guarantees 0 phantom actions across state-modifying external APIs.
-3. **Immutable Slot-DAG State Engine:** Mathematically proves zero state corruption during conversational self-corrections.
-
-### Full-Duplex-Bench v3 (FDB-v3) Empirical Scorecard
-
-```
-================================================================================
-✦ INFERICS PULSE — FULL-DUPLEX-BENCH v3 OFFICIAL BENCHMARK SCORECARD
-================================================================================
-  Benchmark Metric           Baseline SOTA    FDB-v3 Threshold   INFERICS Pulse
-  ─────────────────────────────────────────────────────────────────────────────
-  Tool-Selection F1 Score:       0.842            > 0.900            0.994  [PASS]
-  Semantic Arg Accuracy:         0.865            > 0.920            0.988  [PASS]
-  Interruption Halt Latency:     84.0ms           < 15.0ms           11.8ms [PASS]
-  Time to First Filler (TTFA):  450.0ms           < 50.0ms           28.5ms [PASS]
-  State Mutation Leaks:          14.2%              0.0%              0.0%  [ZERO]
-  Strict Pass Rate (Tie-Breaker): 76.0%            > 95.0%           100.0% [PASS]
-================================================================================
-  Base Score: 99.78 / 100.0  |  Multimodal Multiplier: 1.50×  |  Naturalness: 1.05×
-  FINAL OFFICIALLY ADJUSTED BENCHMARK SCORE: 157.15 POINTS (RUBRIC CHAMPION)
-================================================================================
-```
-
-### Comprehensive Disfluency Resilience Matrix (5/5 Passes):
-- **Fillers ("um", "uh", "like"):** Retains conversational floor; zero premature execution.
-- **Pauses (>500ms):** Dynamic endpointing prevents premature turn truncation.
-- **Hesitations:** Contextual micro-fillers emitted without state corruption.
-- **False Starts:** Immediate slot re-indexing without side-effect leaks.
-- **Mid-Sentence Self-Corrections:** Sub-15ms task abort + atomic slot self-repair.
-
-### ⚠️ Honest Technical Limitations (Principal Engineering Invariant)
-To maintain the highest standard of engineering rigor, we explicitly disclose current technical boundary conditions and mitigation roadmaps:
-
-1. **Acoustic Phonetic Drift in Extreme High-SPL Environments (>85 dB):**
-   - *Limitation:* In high acoustic noise (e.g., crowded food courts or subway platforms), streaming STT interim transcripts experience phonetic phoneme instability, occasionally causing false barge-in triggers.
-   - *Current Mitigation:* Implemented an adaptive 12ms acoustic energy hysteresis gate in Silero VAD before firing cancellation events.
-2. **Multi-Speaker Crosstalk Ambiguity:**
-   - *Limitation:* When multiple human speakers converse simultaneously near the microphone, unconstrained voice streams can cause speculative slot warming for background speakers.
-   - *Current Mitigation:* Hardware-grounded beamforming integration with Galaxy Buds3 Pro triple-mic directional array to isolate the primary speaker's spatial cone.
-3. **Speculative Egress Bandwidth Overhead:**
-   - *Limitation:* Speculatively initiating read-only cloud queries (e.g., flight searches) during early user articulation increases upstream API network requests by ~14% in disfluent dialogues.
-   - *Current Mitigation:* On-device heuristic filter suppresses speculative execution unless slot confidence exceeds 0.82.
-4. **Embedded Microcontroller RAM Constraints:**
-   - *Limitation:* Maintaining complete in-memory Slot-DAG revision history consumes ~42MB resident memory, which requires memory pruning on ultra-low-power SmartThings microcontrollers.
-   - *Current Mitigation:* Sliding-window DAG pruning retaining only the last 5 state revisions for constrained edge targets.
-
----
-
-## Slide 9: What’s Next (Hardware Silicon-to-Cloud Roadmap)
-
-### Tiered Compute Architecture for 2026–2027
-INFERICS Pulse is architected for seamless hybrid distribution across edge silicon and ultra-fast cloud LPUs:
-
-```
-┌─────────────────────────────────────────────────────────────────────────────────────┐
-│ TIER 1: ON-DEVICE EMBEDDED NPU (< 5ms LATENCY)                                      │
-│ Hardware: Snapdragon 8 Elite / Dimensity 9300+ / Exynos 2500 (45–50 TOPS)           │
-│ Roles: Silero VAD Reactor • Hardware Double-Pinch Gesture Sentinel • Audio PCM Ring │
-│ Implementation: Rust / C++ Micro-Reactor compiled to Hexagon / NPU DSP               │
-├─────────────────────────────────────────────────────────────────────────────────────┤
-│ TIER 2: LOCAL HOME EDGE BRIDGE (< 15ms LATENCY)                                     │
-│ Hardware: Galaxy Book5 Pro 360 (Intel Lunar Lake 47 TOPS) / SmartThings Station     │
-│ Roles: Matter 1.3 & Thread Mesh Router • Local Slot-DAG Ledger • Device Telemetry   │
-│ Implementation: Embedded Python 3.11+ / AsyncIO Local Orchestrator                  │
-├─────────────────────────────────────────────────────────────────────────────────────┤
-│ TIER 3: ULTRA-LOW-LATENCY CLOUD REASONING (< 50ms LATENCY)                          │
-│ Hardware: Groq Language Processing Units (LPUs) • LiveKit WebRTC Global Edge        │
-│ Roles: qwen/qwen3.8-27b High-Throughput Token Generation (500+ tok/s)                │
-│ Audio: Deepgram Nova-2 Streaming STT • Cartesia Sonic / ElevenLabs Turbo-v2 TTS     │
-└─────────────────────────────────────────────────────────────────────────────────────┘
-```
-
-### Strategic Milestone Horizon:
-- **Q3 2026:** Native One UI 7 background service integration; on-device Rust-compiled Silero VAD micro-kernel.
-- **Q1 2027:** Snapdragon 8 Elite Hexagon NPU direct kernel binding for zero-copy audio tensor streaming.
-- **Q3 2027:** Android XR (Project Moohan) spatial gaze-directed barge-in integration with micro-OLED eye-tracking.
-
----
-
-## Slide 10: Brownie Points Slide (Differentiation)
-
-### 4 Unfair Differentiators Elevating INFERICS Pulse Above Competition
-
-```
-                     ┌──────────────────────────────────────┐
-                     │    FUTURE TELEMETRY RADAR 2026+      │
-                     └──────────────────┬───────────────────┘
-                                        │
-     ┌──────────────────────┬───────────┴──────────┬──────────────────────┐
-     ▼                      ▼                      ▼                      ▼
-[BIOMETRIC BARGE-IN]   [SPATIAL XR MESH]      [PREDICTIVE DAG]      [MULTI-AGENT MESH]
-Galaxy Watch Ultra     Project Moohan Micro-  Anticipatory tool     Decentralized peer
-BioActive sensor       OLED gaze tracking     warming using user    consensus across
-detects vocal cord     triggers barge-in      habitual graph on     15+ SmartThings
-micro-vibrations       before speech          Galaxy Knowledge      appliances without
-BEFORE sound emission  articulation completes Base                  central cloud SPOF
-```
-
-1. **Biometric Pre-Speech Barge-In Sentinel:**
-   - Utilizes the **Galaxy Watch Ultra BioActive sensor and skin-contact accelerometer** to detect vocal cord micro-vibrations **40ms before audible sound waves emit**, initiating cancellation before acoustic VAD triggers.
-2. **Spatial XR Gaze-Directed Interruption (Project Moohan):**
-   - Integrates gaze-tracking telemetry from upcoming Android XR headsets. Shifting gaze away from an active display instantly pauses spoken output and yields the conversational floor.
-3. **64.2% Cloud Egress Cost Reduction:**
-   - Emitting local conversational fillers and filtering false interruptions on-device slashes redundant cloud LLM inference invocations by **64.2%**, yielding massive operational cloud savings.
-4. **Official 1.50× Multimodal Multiplier:**
-   - True concurrent multi-modal grounding combining ISOCELL 200MP vision frames and audio PCM streams without latency degradation.
-
----
-
-## Slide 11: Checklist - Updated on Public GitHub
-
-### Mandatory Samsung PRISM Submission Compliance Verification
-
-All submission assets have been created, verified, and committed to the public GitHub repository under the mandatory release tag:
-
-| # | Official Samsung Checklist Requirement | Status | Verification Detail / Repository Artifact Location |
-| :-: | :--- | :---: | :--- |
-| **1** | **Working prototype code — public or shared GitHub repo** | **(Y)** | Complete codebase published; verified zero external private server dependencies. |
-| **2** | **README with reproducible setup instructions** | **(Y)** | Dual-OS automated reproduction scripts: `run_fdb_benchmark.sh` (Linux/WSL) and `run_fdb_benchmark.bat` (Windows). Single command runs full benchmark. |
-| **3** | **Demo video, max 5 minutes (YouTube or Drive link)** | **(Y)** | Hosted at YouTube / Google Drive link provided in README; unedited single-take demonstrating sub-15ms barge-in and 15-device multi-modal telemetry. |
-| **4** | **Presentation file (PPT or PDF)** | **(Y)** | File strictly named `CollegeName_TeamName_Submission.pptx` (and `.pdf`), containing exactly 12 template-compliant slides matching Samsung's official structure. |
-
-### Mandatory GitHub Release Tag Confirmation:
-- **Git Release Tag:** `PRISM_GENAI_HACKATHON_Y2026`
-- **Verification Command:** `git tag -l PRISM_GENAI_HACKATHON_Y2026`
-
----
-
-## Slide 12: Thank You
+## Slide 8: Thank You & Highlights
 
 ### Empowering 500 Million Samsung Galaxy Devices with Interruptible Intelligence
 
@@ -408,9 +276,9 @@ All submission assets have been created, verified, and committed to the public G
 
 - **Project:** INFERICS Pulse — NEXUS-DUAL Architecture v2.0
 - **Theme:** Theme 05 — Interruptible Real-Time Agents
-- **Public GitHub Repository:** `https://github.com/[Your-Org]/[Your-Repo]` *(Tag: `PRISM_GENAI_HACKATHON_Y2026`)*
-- **Live Deployment:** `https://samsung-galaxy-ai.vercel.app`
-- **Contact:** `[lead.email@domain.com]` | `[member2.email@domain.com]`
+- **Public GitHub Repository:** `https://youtu.be/LERGdrp1xLY` *(Tag: `PRISM_GENAI_HACKATHON_Y2026`)*
+- **Live Deployment:** `https://inferics-samsung-prism.vercel.app`
+- **Contact:** `pranjal.das@srmist.edu.in` | `team@srmist.edu.in`
 
 ```
 ================================================================================
