@@ -1004,7 +1004,7 @@ let isFinalized = false;
   };
   const activeDomainObj = AGENT_DOMAINS[activeDomain] || AGENT_DOMAINS.travel;
   const activeDev = devices[selectedDevice] || defaultSamsungDevices[selectedDevice] || defaultSamsungDevices.s25_ultra;
-  const isLight = true;
+  const isLight = false;
   return /* @__PURE__ */ React.createElement("div", { className: "h-[100dvh] overflow-hidden flex flex-col font-sans bg-white text-zinc-900 selection:bg-blue-600/30 selection:text-white" }, bootStage !== "hidden" && /* @__PURE__ */ React.createElement("div", { className: `fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-black transition-opacity duration-1000 ease-in-out ${bootStage === "fading" ? "opacity-0" : "opacity-100"}` }, /* @__PURE__ */ React.createElement("div", { className: "flex flex-col items-center justify-center mb-16" }, /* @__PURE__ */ React.createElement(
     "h1",
     {

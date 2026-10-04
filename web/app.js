@@ -1124,7 +1124,7 @@ let isFinalized = false;
 
   const activeDomainObj = AGENT_DOMAINS[activeDomain] || AGENT_DOMAINS.travel;
   const activeDev = devices[selectedDevice] || defaultSamsungDevices[selectedDevice] || defaultSamsungDevices.s25_ultra;
-  const isLight = true;
+  const isLight = false;
 
   return (
     <div className="h-[100dvh] overflow-hidden flex flex-col font-sans bg-white text-zinc-900 selection:bg-blue-600/30 selection:text-white">
@@ -2190,7 +2190,7 @@ let isFinalized = false;
           <span>Sub-15ms Interruption Reactor</span>
         </div>
       </footer>
-              </section>
+        </main>
         
         {/* Right Fixed Chat Copilot (Pinned Global Sidebar) */}
         <aside className="flex flex-col h-full shrink-0 border-l z-20 transition-all bg-white dark:bg-black border-zinc-200 dark:border-zinc-800 w-full lg:w-[30%] lg:min-w-[340px] lg:max-w-[450px]">

@@ -39,9 +39,9 @@
   <style>
     /* Unconditional Solid White Base */
     html, body, #root {
-      background-color: #ffffff !important;
-      background: #ffffff !important;
-      color: #09090b !important;
+      background-color: #000000 !important;
+      background: #000000 !important;
+      color: #ffffff !important;
       min-height: 100vh;
       margin: 0;
       padding: 0;
@@ -57,9 +57,21 @@
   <script src="./react-dom.production.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 </head>
-<body class="min-h-screen bg-white text-zinc-900 selection:bg-blue-600/30 selection:text-white">
+<body class="min-h-screen bg-black text-white selection:bg-blue-500/30 selection:text-blue-100 overflow-x-hidden">
   
+  
+  <div class="fixed inset-0 z-[-1] bg-black overflow-hidden pointer-events-none perspective-[2000px]">
+    <!-- ShaderGradient / OriginKit 3D Aesthetic Orbs -->
+    <div class="absolute top-[-30%] left-[-10%] w-[80vw] h-[80vw] rounded-full bg-blue-600/10 blur-[150px] mix-blend-screen opacity-80 animate-pulse" style="animation-duration: 8s;"></div>
+    <div class="absolute bottom-[-30%] right-[-10%] w-[70vw] h-[70vw] rounded-full bg-violet-600/10 blur-[150px] mix-blend-screen opacity-60" style="animation: pulse 12s infinite alternate-reverse;"></div>
+    <div class="absolute top-[10%] left-[30%] w-[50vw] h-[50vw] rounded-full bg-cyan-400/10 blur-[120px] mix-blend-screen opacity-40"></div>
+    <!-- 3D Grid Floor -->
+    <div class="absolute bottom-0 left-0 right-0 h-[60vh] bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCI+PXBhdGggZD0iTTAgMGg0MHY0MEgweiIgZmlsbD0ibm9uZSIvPjxwYXRoIGQ9Ik0wIDEwaDQwTTEwIDB2NDAiIHN0cm9rZT0icmdiYSgyNTUsMjU1LDI1NSwwLjA1KSIgc3Ryb2tlLXdpZHRoPSIxIi8+PC9zdmc+')]" style="transform: rotateX(75deg) scale(3) translateY(20%); transform-origin: bottom; opacity: 0.6;"></div>
+    <!-- Overlay Vignette -->
+    <div class="absolute inset-0 bg-radial-gradient from-transparent to-black/80"></div>
+  </div>
   <!-- Main React App Mount -->
+
   <div id="root"></div>
 
   <!-- Pre-compiled Native JavaScript Application (Instant execution) -->
