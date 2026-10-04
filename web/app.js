@@ -1187,7 +1187,7 @@ function App() {
         </div>
       </nav>
 
-            <div className="flex-1 flex overflow-hidden w-full">
+            <div className="flex-1 flex lg:flex-row-reverse overflow-hidden w-full">
         <main className="flex-1 overflow-y-auto pb-16">
 
       {/* 2. Hero Billboard: Multi-Purpose Interruptible Agent Runtime */}
@@ -2101,7 +2101,7 @@ function App() {
               </section>
         
         {/* Right Fixed Chat Copilot (Pinned Global Sidebar) */}
-        <aside className="flex flex-col h-full shrink-0 border-l z-20 transition-all bg-white dark:bg-black border-zinc-200 dark:border-zinc-800 w-full lg:w-[30%] lg:min-w-[340px] lg:max-w-[450px]">
+        <aside className="flex flex-col h-full shrink-0 border-r z-20 transition-all bg-white dark:bg-black border-zinc-200 dark:border-zinc-800 w-full lg:w-[50%] lg:min-w-[450px] lg:max-w-[700px] shadow-2xl">
             <div className="h-full w-full overflow-hidden flex flex-col">
           <div className="flex flex-col gap-3 h-full p-4">
             
