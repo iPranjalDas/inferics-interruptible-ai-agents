@@ -171,6 +171,15 @@ Then navigate to `http://localhost:3000` in any modern web browser to access the
 
 ---
 
+### 4.4 Evaluator Toolkit: Pitch Deck Direct Download & X-Ray Backend Inspector Overlay
+
+To streamline judge evaluation and provide total architectural transparency during live demonstrations, the Living Web Interface (`web/index.html`) incorporates two dedicated evaluator instruments:
+
+- **1-Click Pitch Deck Direct Download Button:** Situated directly in the top global navigation header, the `📊 Pitch Deck` action triggers an instant download of the official competition presentation deck (`CollegeName_TeamName_Submission.pptx`). This eliminates the need for manual filesystem crawling or external drive navigation, enabling reviewers to cross-reference architectural claims against presentation slides side-by-side with zero friction.
+- **X-Ray Backend Inspector Overlay (`⚡ X-Ray Mode`):** Clicking the interactive X-Ray toggle opens a real-time system HUD directly above the core runtime dashboard, giving evaluators full observability into the engine's internal execution state:
+  - **Chaos Network Delay Simulator:** Provides interactive latency injection controls (`0ms`, `+250ms`, `+500ms`, `+1200ms`) allowing evaluators to stress-test the system under adverse network jitter and verify that Fast-Path cooperative cancellations execute deterministically regardless of transport lag.
+  - **Async Worker Pool Telemetry:** Displays real-time heartbeats, allocation states, and ping latencies across the concurrent worker threads powering the Fast-Path Reactor and Multimodal Vision Decoder.
+
 ## 5. Model Providers & Runtime Dependencies
 
 The architecture operates with production-grade providers while including zero-dependency fallback modes:
