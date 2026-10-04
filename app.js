@@ -1415,7 +1415,7 @@ function App() {
 
       {/* 5. TAB 1: RUNTIME CORE & MULTI-DOMAIN AGENTS */}
       {activeTab === "runtime" && (
-        <section className="w-full max-w-7xl mx-auto px-3 sm:px-6 mt-4 sm:mt-6 flex flex-col gap-6 lg:gap-8 w-full max-w-4xl mx-auto min-w-0">
+        <main className="w-full max-w-7xl mx-auto px-3 sm:px-6 mt-4 sm:mt-6 flex flex-col gap-6 lg:gap-8 w-full max-w-4xl mx-auto min-w-0">
           
           {/* Left Column: Voice Core, Race-Condition Visualizer & Hardware Telemetry (5 Cols) */}
           <div className="w-full min-w-0 max-w-full w-full flex flex-col gap-6">
@@ -1595,7 +1595,6 @@ function App() {
                   <img 
                     src={activeDev.image || `/assets/products/${selectedDevice}.png`} 
                     alt={activeDev.name} 
-                    loading="lazy"
                     className="max-w-full max-h-full w-auto h-auto object-contain drop-shadow-[0_4px_16px_rgba(0,0,0,0.12)] group-hover:scale-105 transition-transform"
                   />
                 </div>
@@ -1638,12 +1637,12 @@ function App() {
 
           {/* Right Column: Chat Arena & Multi-Domain Advisor (7 Cols) */}
 
-        </section>
+        </main>
       )}
 
       {/* 6. TAB 2: MULTI-PURPOSE DOMAINS & ENDPOINTS (No Shopping Store, Pure Agent OS Capabilities) */}
       {activeTab === "domains" && (
-        <section className="w-full max-w-7xl mx-auto px-3 sm:px-6 mt-4 sm:mt-6 flex flex-col gap-8 animate-fadeIn">
+        <main className="w-full max-w-7xl mx-auto px-3 sm:px-6 mt-4 sm:mt-6 flex flex-col gap-8 animate-fadeIn">
           
           {/* Section 1: The 5 Multi-Purpose Agent Domains */}
           <div>
@@ -1757,7 +1756,6 @@ function App() {
                         <img 
                           src={dev.image || `/assets/products/${key}.png`} 
                           alt={dev.name} 
-                          loading="lazy"
                           className="max-h-24 sm:max-h-32 md:max-h-36 max-w-[85%] w-auto h-auto object-contain drop-shadow-[0_8px_24px_rgba(0,0,0,0.12)] group-hover:scale-105 transition-transform duration-300"
                         />
                       </div>
@@ -1806,12 +1804,12 @@ function App() {
             </div>
           </div>
 
-        </section>
+        </main>
       )}
 
       {/* 7. TAB 3: SLOT LEDGER & THEME 05 BENCHMARK MATRIX */}
       {activeTab === "ledger" && (
-        <section className="w-full max-w-7xl mx-auto px-4 sm:px-6 mt-4 sm:mt-6 flex flex-col gap-6 animate-fadeIn">
+        <main className="w-full max-w-7xl mx-auto px-4 sm:px-6 mt-4 sm:mt-6 flex flex-col gap-6 animate-fadeIn">
           
           {/* Top Banner: Official Rubric Formula & Tie-Breaker Notice */}
           <div className={`p-4 sm:p-6 rounded-2xl sm:rounded-3xl border shadow-2xl flex flex-col md:flex-row md:items-center justify-between gap-4 ${
@@ -2080,7 +2078,7 @@ function App() {
 
           </div>
 
-        </section>
+        </main>
       )}
 
       {/* 8. Official Samsung Footer */}
@@ -2098,7 +2096,7 @@ function App() {
           <span>Sub-15ms Interruption Reactor</span>
         </div>
       </footer>
-              </section>
+              </main>
         
         {/* Right Fixed Chat Copilot (Pinned Global Sidebar) */}
         <aside className="flex flex-col h-full shrink-0 border-l z-20 transition-all bg-white dark:bg-black border-zinc-200 dark:border-zinc-800 w-full lg:w-[30%] lg:min-w-[340px] lg:max-w-[450px]">

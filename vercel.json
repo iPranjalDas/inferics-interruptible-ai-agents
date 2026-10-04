@@ -7,8 +7,7 @@
     { "source": "/api/state", "destination": "/api/state.js" },
     { "source": "/api/interrupt", "destination": "/api/interrupt.js" },
     { "source": "/api/device/control", "destination": "/api/device-control.js" },
-    { "source": "/api/chat", "destination": "/api/chat.js" },
-    { "source": "/:path*", "destination": "/public/:path*" }
+    { "source": "/api/chat", "destination": "/api/chat.js" }
   ],
   "headers": [
     {
