@@ -397,9 +397,15 @@ function App() {
   const recognitionRef = useRef(null);
   const mobileBaseTextRef = useRef("");
   const resetAgentState = () => {
-    addEventToBus("RESET", "Agent runtime and hardware mesh state synchronized.");
+    if (abortControllerRef.current) { try { abortControllerRef.current.abort(); } catch(e) {} }
+    if (recognitionRef.current) { try { recognitionRef.current.stop(); } catch(e) {} }
+    setCurrentStream("");
+    setCurrentFiller("");
+    setActiveDisfluency(null);
+    setMessage("");
     setAgentState("idle");
     setIsListening(false);
+    addEventToBus("RESET", "Agent runtime and hardware mesh state synchronized.");
   };
   useEffect(() => {
     try {
@@ -663,7 +669,7 @@ function App() {
               addEventToBus("FAST_PATH", `Emitted filler (${data.latency_ms || 28}ms): "${data.filler.slice(0, 32)}..."`);
             } else if (eventType === "slot_update") {
               if (data.ledger) {
-                setSlotLedger(data.ledger);
+                setSlotLedger(prev => ({ ...prev, ...(data.ledger || {}) }));
                 addEventToBus("DAG_UPDATE", `Slot state updated: ${data.ledger.intent} (v#${data.ledger.version || 2})`);
               }
             } else if (eventType === "token") {

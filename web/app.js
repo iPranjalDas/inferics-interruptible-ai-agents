@@ -444,9 +444,15 @@ function App() {
 
   // Reset Agent State & Mesh Telemetry
   const resetAgentState = () => {
-    addEventToBus("RESET", "Agent runtime and hardware mesh state synchronized.");
+    if (abortControllerRef.current) { try { abortControllerRef.current.abort(); } catch(e) {} }
+    if (recognitionRef.current) { try { recognitionRef.current.stop(); } catch(e) {} }
+    setCurrentStream("");
+    setCurrentFiller("");
+    setActiveDisfluency(null);
+    setMessage("");
     setAgentState("idle");
     setIsListening(false);
+    addEventToBus("RESET", "Agent runtime and hardware mesh state synchronized.");
   };
 
   // Enforce Light Theme on Mount
@@ -749,7 +755,7 @@ function App() {
               addEventToBus("FAST_PATH", `Emitted filler (${data.latency_ms || 28}ms): "${data.filler.slice(0, 32)}..."`);
             } else if (eventType === "slot_update") {
               if (data.ledger) {
-                setSlotLedger(data.ledger);
+                setSlotLedger(prev => ({ ...prev, ...(data.ledger || {}) }));
                 addEventToBus("DAG_UPDATE", `Slot state updated: ${data.ledger.intent} (v#${data.ledger.version || 2})`);
               }
             } else if (eventType === "token") {
@@ -1153,13 +1159,13 @@ function App() {
 
           {/* Desktop Right Controls (X-Ray Toggle & Reset) */}
           <div className="hidden lg:flex items-center gap-2.5 shrink-0">
-            <a
-              href="/CollegeName_TeamName_Submission.pptx"
-              download
+            <button
+              onClick={() => setIsDeckOpen(true)}
+              type="button"
               className="text-xs font-bold px-3 py-1.5 rounded-full border transition flex items-center gap-1.5 cursor-pointer bg-purple-50 text-purple-800 hover:bg-purple-100 border-purple-200 shadow-sm">
               <span>📊</span>
               <span>Pitch Deck</span>
-            </a>
+            </button>
             {/* Judge-Winning Weapon 1: X-Ray Mode Toggle */}
             <button
               type="button"
@@ -1187,7 +1193,7 @@ function App() {
         </div>
       </nav>
 
-            <div className="flex-1 flex overflow-hidden w-full">
+            <div className="flex-1 flex flex-col lg:flex-row overflow-hidden w-full">
         <main className="flex-1 overflow-y-auto pb-16">
 
       {/* 2. Hero Billboard: Multi-Purpose Interruptible Agent Runtime */}
@@ -2128,7 +2134,7 @@ function App() {
             </div>
 
             {/* Chat Transcript Card */}
-            <div className={`w-full min-w-0 p-3.5 sm:p-6 rounded-2xl sm:rounded-3xl border shadow-2xl flex flex-col h-[500px] lg:h-[640px] justify-between ${
+            <div className={`w-full min-w-0 p-3.5 sm:p-6 rounded-2xl sm:rounded-3xl border shadow-2xl flex flex-col flex-1 min-h-[360px] lg:h-[640px] justify-between ${
               isLight ? "bg-white border-zinc-200 text-zinc-900 shadow-zinc-200/50" : "bg-zinc-950 border-zinc-800 text-white"
             }`}>
               

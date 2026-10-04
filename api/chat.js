@@ -1,3 +1,4 @@
+export const maxDuration = 60;
 // Vercel Serverless Function: POST /api/chat (SSE Streaming with Groq LPU API + Tri-Mode RAG)
 const fs = require('fs');
 const path = require('path');
