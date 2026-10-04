@@ -120,4 +120,5 @@ git describe --tags
 - **Team:** INFERICS
 - **Lead Developer:** Pranjal Das
 - **Organization:** SRM Institute of Science and Technology, KTR
-- **Submission:** Samsung PRISM GenAI Hackathon (3rd Edition, 2026–27) · Theme 05
+- **Submission:** Samsung PRISM GenAI Hackathon (3rd Edition, 2026–27)
+- **Theme:** Theme 05 (Interruptible Real-Time Agents)
