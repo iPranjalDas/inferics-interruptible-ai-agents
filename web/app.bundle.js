@@ -924,6 +924,15 @@ function App() {
     },
     "\u2726 Galaxy AI OS"
   )), /* @__PURE__ */ React.createElement("div", { className: "flex lg:hidden items-center gap-1.5 shrink-0" }, /* @__PURE__ */ React.createElement(
+    "a",
+    {
+      href: "/CollegeName_TeamName_Submission.pptx",
+      download: true,
+      className: "text-xs font-semibold px-2.5 py-1 rounded-full border transition flex items-center gap-1 cursor-pointer bg-purple-50 text-purple-800 hover:border-purple-300 border-purple-200"
+    },
+    /* @__PURE__ */ React.createElement("span", null, "📊"),
+    /* @__PURE__ */ React.createElement("span", null, "Deck")
+  ), /* @__PURE__ */ React.createElement(
     "button",
     {
       type: "button",
@@ -947,6 +956,15 @@ function App() {
       isCurrentActive && /* @__PURE__ */ React.createElement("span", { className: "w-1.5 h-1.5 rounded-full bg-white animate-pulse" })
     );
   }))), /* @__PURE__ */ React.createElement("div", { className: "hidden lg:flex items-center gap-2.5 shrink-0" }, /* @__PURE__ */ React.createElement(
+    "a",
+    {
+      href: "/CollegeName_TeamName_Submission.pptx",
+      download: true,
+      className: "text-xs font-bold px-3 py-1.5 rounded-full border transition flex items-center gap-1.5 cursor-pointer bg-purple-50 text-purple-800 hover:bg-purple-100 border-purple-200 shadow-sm"
+    },
+    /* @__PURE__ */ React.createElement("span", null, "📊"),
+    /* @__PURE__ */ React.createElement("span", null, "Pitch Deck")
+  ), /* @__PURE__ */ React.createElement(
     "button",
     {
       type: "button",
