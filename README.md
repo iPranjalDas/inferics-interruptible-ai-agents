@@ -28,7 +28,7 @@
 | :--- | :---: | :--- |
 | **1. Source Code** | ✅ Complete | Complete Next.js/React Frontend UI (`web/`), FastAPI Backend (`server.py`), and RAG Knowledge Base (`samsung_knowledge_base.json`). |
 | **2. Presentation** | ✅ Complete | 12-Slide Master Pitch Deck: [`PITCH_DECK.md`](./PITCH_DECK.md) containing the problem statement, architecture diagrams, and competitive moat. |
-| **3. Video** | ✅ Complete | Complete Demo Video Script: [`VIDEO_SCRIPT.md`](./VIDEO_SCRIPT.md). |
+| **3. Video** | ✅ Complete | High-Definition Demo Video (Youtube Link in Submission Portal) |
 | **4. AI Disclosure** | ✅ Complete | Official AI Usage Disclosure: [`INFERICS_Theme05_AI_Disclosure.md`](./INFERICS_Theme05_AI_Disclosure.md) attached in repo root. |
 | **5. Detailed README** | ✅ Complete | This master documentation detailing the Fast-Path Reactor, Immutable Slot Ledger, and Tri-Mode RAG architecture. |
 | **6. Testing Harness** | ✅ Complete | Automated FDB-v3 Evaluation Benchmark suite: [`run_fdb_benchmark.sh`](./run_fdb_benchmark.sh). |
